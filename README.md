@@ -8,7 +8,7 @@ Welcome to my Data Science portfolio! This repository showcases five projects Iâ
 | [AB Testing](https://github.com/ZzClaude/DS-Portfolio/blob/main/AB-Testing-User-Engagement/readme.md) | [Link](https://drive.google.com/drive/folders/1C8HnbdoFgt83fhCzPXYCp938QK_uKAv0?usp=drive_link) |
 | [Recommendation System](https://github.com/ZzClaude/DS-Portfolio/blob/main/Recommendation-System/readme.md) | [Link](https://drive.google.com/drive/folders/1Zkwe0_W8h86adkzXer42t2e-3nPvuuQU?usp=drive_link) |
 | [Time Series Forecasting](https://github.com/ZzClaude/DS-Portfolio/blob/main/Time-Series-Forecasting/readme.md) | [Link](https://drive.google.com/drive/folders/1_T-xKzzkrPtO5KlqP3-XblTMnljQFZG6?usp=drive_link) |
-| [Customer Clustering](https://github.com/ZzClaude/DS-Portfolio/blob/main/Customer-Segmentation/readme.md) | [Link](https://drive.google.com/drive/folders/1U5BdXPyVNrz6sj4dK6-ZIvIhofZrK2Ms?usp=drive_link) |
+| [Customer Clustering](https://github.com/ZzClaude/DS-Portfolio/blob/main/Customer-Clustering/readme.md) | [Link](https://drive.google.com/drive/folders/1U5BdXPyVNrz6sj4dK6-ZIvIhofZrK2Ms?usp=drive_link) |
 
 ---
 
