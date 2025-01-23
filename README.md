@@ -14,7 +14,7 @@ Welcome to my Data Science portfolio! This repository showcases five projects Iâ
   - Visualization: `Matplotlib`, `Seaborn`, `Plotly`, `Folium`, `Basemap`.
   - Graph Analysis: `NetworkX`, `Heapq`.
 - **Key Results**: Improved rating precision by 17% and increased elite user retention by 12%.
-- **Folder**: [`NLP-Yelp-Analysis`](#)
+- **Folder**: [`NLP-Yelp-Analysis`](https://github.com/ZzClaude/DS-Portfolio/tree/main/NLP-Yelp-Analysis)
 
 ---
 
