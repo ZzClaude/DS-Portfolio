@@ -1,5 +1,9 @@
 # **Enhancing E-commerce Customer Insights: RFM and K-Means Driven Segmentation**
 
+<p>
+  <img src="https://segmentify.com/wp-content/uploads/2021/08/clusters.png" alt="Image" width="600">
+</p>
+
 ## **Project Overview**
 This project implemented **RFM (Recency, Frequency, Monetary)** analysis combined with **K-Means clustering** to analyze 540,000+ transactional records, identifying actionable customer insights. The results supported strategic decision-making for **IPO disclosures**, showcasing revenue stability and growth potential. By effectively segmenting customers, we improved retention rates, optimized marketing strategies, and enhanced operational efficiency.
 
