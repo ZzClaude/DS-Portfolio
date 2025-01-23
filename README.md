@@ -2,6 +2,12 @@
 
 Welcome to my Data Science portfolio! This repository showcases five projects I’ve worked on, covering a range of topics including natural language processing (NLP), recommendation systems, A/B testing, customer segmentation, and time-series forecasting. Each project is structured to demonstrate my skills in **data analysis**, **machine learning**, **SQL**, and **visualization**.
 
+- **Empowering User Experience**: Optimizing product recommendations through A/B testing and UI enhancements.  
+- **Unveiling Business Insights**: A comprehensive data analysis of Yelp reviews to refine star ratings and improve user retention.  
+- **Customer Segmentation for IPO Success**: Identifying high-value segments using advanced clustering techniques, driving loyalty and repeat purchases.  
+- **Revolutionizing Financial Forecasts**: Optimizing procurement and sales cycles with advanced time-series forecasting models.
+- **News Intelligence**: Unleashing the potential of user history to enhance click prediction accuracy through deep learning and recommendation systems.  
+
 | Project Detail | Data Link |
 |:---------------:|:---------:|
 | [AB Testing](https://github.com/ZzClaude/DS-Portfolio/blob/main/AB-Testing-User-Engagement/readme.md) | [Link](https://drive.google.com/drive/folders/1C8HnbdoFgt83fhCzPXYCp938QK_uKAv0?usp=drive_link) |
