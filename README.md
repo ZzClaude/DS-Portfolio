@@ -10,8 +10,6 @@ Welcome to my Data Science portfolio! This repository showcases five projects Iâ
 | [Time Series Forecasting](https://github.com/ZzClaude/DS-Portfolio/blob/main/Time-Series-Forecasting/readme.md) | [Link](https://drive.google.com/drive/folders/1_T-xKzzkrPtO5KlqP3-XblTMnljQFZG6?usp=drive_link) |
 | [Customer Clustering](https://github.com/ZzClaude/DS-Portfolio/blob/main/Customer-Segmentation/readme.md) | [Link](https://drive.google.com/drive/folders/1U5BdXPyVNrz6sj4dK6-ZIvIhofZrK2Ms?usp=drive_link) |
 
-
-
 ---
 
 ## **Projects Overview**
@@ -24,7 +22,6 @@ Welcome to my Data Science portfolio! This repository showcases five projects Iâ
   - Visualization: `Matplotlib`, `Seaborn`, `Plotly`, `Folium`, `Basemap`.
   - Graph Analysis: `NetworkX`, `Heapq`.
 - **Key Results**: Improved rating precision by 17% and increased elite user retention by 12%.
-- **Folder**: [`NLP-Yelp-Analysis`](https://github.com/ZzClaude/DS-Portfolio/tree/main/NLP-Yelp-Analysis)
 
 ---
 
@@ -36,7 +33,6 @@ Welcome to my Data Science portfolio! This repository showcases five projects Iâ
   - Embedding: `Word2Vec`, `FAISS`.
   - Machine Learning: `LightGBM`.
 - **Key Results**: Enhanced click prediction accuracy by 20% using stacked and weighted fusion techniques.
-- **Folder**: [`Recommendation-System`](https://github.com/ZzClaude/DS-Portfolio/tree/main/Recommendation-System)
 
 ---
 
@@ -47,7 +43,6 @@ Welcome to my Data Science portfolio! This repository showcases five projects Iâ
   - Statistical Analysis: `Scipy`, `Statsmodels`.
   - Visualization: `Matplotlib`, `Seaborn`.
 - **Key Results**: Increased in-app purchase conversion by 10% and user retention by 5%.
-- **Folder**: [`AB-Testing-User-Engagement`](https://github.com/ZzClaude/DS-Portfolio/tree/main/AB-Testing-User-Engagement)
 
 ---
 
@@ -58,7 +53,6 @@ Welcome to my Data Science portfolio! This repository showcases five projects Iâ
   - Clustering: `KMeans`, `DBSCAN`, `Silhouette Score`.
   - Optimization Techniques: `K-medoids`, `Canopy Algorithm`, `FCM`.
 - **Key Results**: Improved repeat purchase rates from 31% to 42% and enhanced investor confidence.
-- **Folder**: [`Customer-Segmentation`](https://github.com/ZzClaude/DS-Portfolio/tree/main/Customer-Segmentation)
 
 ---
 
@@ -69,6 +63,5 @@ Welcome to my Data Science portfolio! This repository showcases five projects Iâ
   - Forecasting: `Prophet`, `XGBoost`, `RandomForest`, `Lasso`, `Ridge`, `BayesianRidge`.
   - Statistical Analysis: `Scipy`, `Statsmodels`, `Shap`.
 - **Key Results**: Improved forecasting accuracy by 15% and reduced capital needs by 10%.
-- **Folder**: [`Time-Series-Forecasting`](https://github.com/ZzClaude/DS-Portfolio/tree/main/Time-Series-Forecasting)
 
 ---
