@@ -1,7 +1,7 @@
 # Revolutionizing Cash Flow Forecasts - A Paradigm Shift in Purchase and Redemption Predictions
 
 <p align="center">
-  <img src="https://www.investopedia.com/thmb/IEG4YEY-j4PXx1U3TyyHU0YEq88=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/TermDefinitions_TimeSeries__V1_CT-e4cb9fe23caf415491b1e850a1be300b.png" alt="Image" width="600">
+  <img src="https://miro.medium.com/v2/resize:fit:1101/1*Vd4TbG2Ocj4cZN2xOcMM8A.jpeg" alt="Image" width="600">
 </p>
 
 ## Background
