@@ -26,7 +26,7 @@ Welcome to my Data Science portfolio! This repository showcases five projects Iâ
   - Embedding: `Word2Vec`, `FAISS`.
   - Machine Learning: `LightGBM`.
 - **Key Results**: Enhanced click prediction accuracy by 20% using stacked and weighted fusion techniques.
-- **Folder**: [`Recommendation-System`](#)
+- **Folder**: [`Recommendation-System`](https://github.com/ZzClaude/DS-Portfolio/tree/main/Recommendation-System)
 
 ---
 
@@ -37,7 +37,7 @@ Welcome to my Data Science portfolio! This repository showcases five projects Iâ
   - Statistical Analysis: `Scipy`, `Statsmodels`.
   - Visualization: `Matplotlib`, `Seaborn`.
 - **Key Results**: Increased in-app purchase conversion by 10% and user retention by 5%.
-- **Folder**: [`AB-Testing-User-Engagement`](#)
+- **Folder**: [`AB-Testing-User-Engagement`](https://github.com/ZzClaude/DS-Portfolio/tree/main/AB-Testing-User-Engagement)
 
 ---
 
@@ -48,7 +48,7 @@ Welcome to my Data Science portfolio! This repository showcases five projects Iâ
   - Clustering: `KMeans`, `DBSCAN`, `Silhouette Score`.
   - Optimization Techniques: `K-medoids`, `Canopy Algorithm`, `FCM`.
 - **Key Results**: Improved repeat purchase rates from 31% to 42% and enhanced investor confidence.
-- **Folder**: [`Customer-Segmentation`](#)
+- **Folder**: [`Customer-Segmentation`](https://github.com/ZzClaude/DS-Portfolio/tree/main/Customer-Segmentation)
 
 ---
 
@@ -59,6 +59,6 @@ Welcome to my Data Science portfolio! This repository showcases five projects Iâ
   - Forecasting: `Prophet`, `XGBoost`, `RandomForest`, `Lasso`, `Ridge`, `BayesianRidge`.
   - Statistical Analysis: `Scipy`, `Statsmodels`, `Shap`.
 - **Key Results**: Improved forecasting accuracy by 15% and reduced capital needs by 10%.
-- **Folder**: [`Time-Series-Forecasting`](#)
+- **Folder**: [`Time-Series-Forecasting`](https://github.com/ZzClaude/DS-Portfolio/tree/main/Time-Series-Forecasting)
 
 ---
