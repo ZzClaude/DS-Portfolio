@@ -1,8 +1,6 @@
 # Revolutionizing Cash Flow Forecasts - A Paradigm Shift in Purchase and Redemption Predictions
 
-<p align="center">
-  <img src="https://miro.medium.com/v2/resize:fit:1101/1*Vd4TbG2Ocj4cZN2xOcMM8A.jpeg" alt="Image" width="600">
-</p>
+<img src="https://miro.medium.com/v2/resize:fit:1101/1*Vd4TbG2Ocj4cZN2xOcMM8A.jpeg" alt="Image" width="500">
 
 ## Background
 
