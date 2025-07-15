@@ -1,4 +1,4 @@
-# **ZzClaude's Portfolio: Data Science and Analytics Journey**
+# **Claude's Portfolio: Data Science and Analytics Journey**
 
 Welcome to my Data Science portfolio! This repository showcases five projects I’ve worked on, covering a range of topics including natural language processing (NLP), recommendation systems, A/B testing, customer segmentation, and time-series forecasting. Each project is structured to demonstrate my skills in **data analysis**, **machine learning**, **SQL**, and **visualization**.
 
