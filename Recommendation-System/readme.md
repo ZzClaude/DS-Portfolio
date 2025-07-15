@@ -1,460 +1,974 @@
-# News Intelligence - Unleashing the Potential of User History for Click Prediction
+# <big><strong>Project Overview</strong></big>
 
-<p align="center">
-  <img src="https://github.com/datoujinggzj/DS_Project_Portfolio/assets/99417740/ed20749b-7174-47c7-b298-5982292b1597" alt="Image" width="700" height="240">
-</p>
+This project tackles a real-world **news recommendation problem**:
+ Given a user's historical reading behavior, our goal is to **predict the final news article that the user will click**, and build a recommendation system accordingly.
 
-## Background
+Instead of traditional tabular data with explicit features and labels, we are provided with **click logs** from a real application environment. Therefore, the first key step is to **reformulate the task into a supervised learning problem** so that we can apply modeling techniques.
 
-This project aims to enhance the user experience and satisfaction in news reading by developing a personalized news recommendation system. With the vast amount of news content available online, users often struggle to find news that is relevant to their interests. Therefore, building an efficient and accurate news recommendation system is crucial for improving user engagement and loyalty.
+------
 
-To address this challenge, a news recommendation system challenge was organized. The challenge provided participants with a dataset of real user browsing behavior, including the text content, timestamp, and category of news articles. 
+## <big><strong>Problem Understanding</strong></big>
 
-The data comes from the user interaction data of a news APP platform, including 300,000 users, nearly 3 million clicks, and more than 360,000 different news articles, each of which has a corresponding embedding vector representation. In order to ensure the fairness of the competition, the click log data of 200,000 users is selected as the training set, the click log data of 50,000 users is selected as Test Set A, and the click log data of another 50,000 users is selected as Test Set B.
+Unlike standard regression or classification problems, this project asks:
 
-### Goal
+> "Which of the 360,000 news articles is the one the user will click at the end?"
 
-The core purpose of building a news recommendation system is to improve the user reading experience and satisfaction. With the explosive growth of news content on the internet, users often struggle to find news articles that are relevant to their interests, and may even waste time reading many irrelevant or uninteresting articles. Therefore, providing personalized and accurate news recommendation services to users can increase their loyalty and engagement with news content, while also improving the user retention and profitability of news media.
+This poses two immediate challenges:
 
-To provide a more detailed explanation, many news media websites and applications now offer news recommendation services that use artificial intelligence and machine learning algorithms to analyze user browsing history, interests, and behaviors in order to recommend news articles that best match their interests and preferences. Here are a few examples:
+- The **prediction target** is not a label or score, but a specific article ID.
+- The **input format** is not structured features, but a click log recording all user-article interactions.
 
-- Suppose a user frequently browses and clicks on sports news articles. The news recommendation system may then recommend more sports-related articles based on this information, such as the latest football match reports or news about sports stars. This makes it easier for users to find the content that they are interested in, improving their satisfaction and loyalty.
-- Another example is that if a user consistently browses health and wellness articles, the news recommendation system may recommend more articles related to health, nutrition, and wellness. This enables users to easily find the information they need, while also learning more about health and wellness.
+To make this task solvable with machine learning, we **transform it into a classification problem**:
 
-Through these examples, we can see that the core purpose of a news recommendation system is to provide personalized and accurate news recommendation services to users in order to improve their reading experience and satisfaction, while also increasing user traffic and revenue for news media.
+> Given a (user, article) pair, predict the probability that the user will click the article.
 
-### Challenge
+This allows us to reframe the goal as **click-through rate (CTR) prediction**, a familiar setting for supervised learning models.
 
-The implementation of a news recommendation system can pose a number of challenges, some of which are:
+------
 
-1. **Data sparsity and cold start problem**: The data collected about users' browsing history and preferences is often sparse and incomplete, making it difficult to accurately determine their interests and make personalized recommendations. Additionally, for new users who have no browsing history, there is no data to use to generate recommendations, which can make it difficult to create personalized experiences for these users.
-2. **Real-time recommendations**: News content is often updated frequently, and users expect to see new and relevant articles as soon as they are published. Therefore, recommendation algorithms must be able to work in real-time and quickly adapt to changing user interests and new articles.
-3. **Scalability and performance**: As the amount of data and the number of users grows, recommendation algorithms must be able to scale efficiently and handle large amounts of data in real-time. This requires careful design and implementation of data storage and retrieval mechanisms, as well as high-performance algorithms that can handle large-scale data processing.
-4. **Privacy and ethical concerns**: Collecting user data to make personalized recommendations can raise privacy and ethical concerns, especially if users are not aware of how their data is being used or if it is being shared with third parties without their consent. Therefore, it is important for news media companies to be transparent about their data collection and usage practices, and to ensure that user data is kept secure and private.
-5. **Algorithm bias**: News recommendation algorithms may sometimes exhibit bias based on the data they are trained on or the assumptions built into their design. This can result in recommendations that are inaccurate or unfairly discriminatory, and can lead to negative consequences for users and the news media companies that use these algorithms. Therefore, it is important to carefully design and evaluate recommendation algorithms to minimize the potential for bias and ensure fair and accurate recommendations for all users.
+## <big><strong>How We Reformulated the Problem</strong></big>
 
-Overall, the challenges of implementing a news recommendation system require a combination of technical expertise, careful planning, and ethical considerations. By addressing these challenges, news media companies can provide personalized and engaging experiences for their users while also ensuring the privacy and security of user data.
+Instead of directly classifying one out of 360,000 categories (a massive multi-class problem), we:
 
-### Opportunity
+1. Generate candidate articles for each user (via recall algorithms).
+2. Predict the click probability for each (user, article) pair.
+3. Rank these candidates based on the predicted probability.
 
-1. **Personalization**: News recommendation systems can provide a personalized experience for users by tailoring recommendations to their interests, preferences, and browsing history. This can increase user engagement and satisfaction, leading to increased traffic and revenue for news media companies.
-2. **Increased User Retention**: By providing personalized and relevant recommendations, news recommendation systems can increase user retention and loyalty, leading to a more engaged and loyal user base.
-3. **Monetization**: News media companies can use recommendation systems to generate additional revenue through targeted advertising and content promotion.
-4. **Improved User Experience**: By providing personalized and relevant recommendations, news recommendation systems can improve the overall user experience by making it easier for users to discover new content that is of interest to them.
-5. **Better Understanding of User Behavior**: By analyzing user data, news recommendation systems can provide valuable insights into user behavior, preferences, and interests. This can help news media companies to better understand their audience and create more targeted content and marketing strategies.
+The article with the highest predicted probability becomes the top recommendation.
+ Thus, the original task becomes a binary classification over (user, article) samples:
 
-### Datasets
+> **Label = 1** if the article is the final clicked one, **0 otherwise.**
 
-- `train_click_log.csv`: User click log dataset used for training the algorithm model.
-- `testA_click_log.csv`: User click log dataset used for testing the algorithm model's performance.
-- `articles.csv`: News article information dataset containing detailed information about all news articles.
-- `articles_emb.csv`: News article embedding vector representation dataset containing embedding vector representations for each article.
+This enables us to:
 
+- Apply standard ML classifiers (e.g., logistic regression, GBDT).
+- Engineer features across user profiles, article metadata, and interaction history.
+- Evaluate predictions using position-sensitive hit scores.
 
+------
 
-<p align="center">
-  <img src="https://github.com/datoujinggzj/DS_Project_Portfolio/assets/99417740/16968586-d844-4aae-90be-5eca727fdb86" alt="Image" width="400" height="400">
-</p>
+### <big><strong>Evaluation Metric</strong></big>
 
+We adopt a **position-decayed hit score** to evaluate the top-5 recommendations.
 
-### Evaluation
+#### Step-by-step:
 
-The evaluation metric for news recommendation systems is MRR (Mean Reciprocal Rank). For each user in the test set, a score is calculated based on the predicted ranking of news articles. The score is calculated as follows:
+- For each user, we recall 50 articles from the entire corpus (~360k).
+- Then, we select the **top 5 articles** ranked by predicted click probability.
+- The **ground truth** is the actual last-clicked article for that user.
 
-$$score(user) = \sum_{k=1}^5 \frac{s(user, k)}{k}$$
+We define the score as:
+$$
+\text{Score}(user) = \sum_{k=1}^5 \frac{s(user, k)}{k}
+$$
+Where:
 
-where rank(user) is the position of the first article clicked by the user in the predicted ranking. If the predicted ranking hits the user's last click, the rank(user) is 5; otherwise, it equals the number of unclicked articles plus 1.
+- $s(user, k) = 1$ if the $k$-th article matches the ground truth; otherwise $0$.
+- $\frac{1}{k}$ acts as a **position decay** factor — earlier hits earn higher scores.
 
-The final score for a team is the average score over all users in the test set.
+#### Example:
 
-Regarding the evaluation metric, if the clicked article is the first predicted result, then $s(user,k)=1$ for k=1 and $s(user,k)=0$ for k=2 to 5. If the clicked article is not the first predicted result but appears in the top 5 recommendations, then $s(user,k)=1/k$, where k is the position of the clicked article in the top 5 recommendations. If the clicked article does not appear in the top 5 recommendations, then s(user,k)=0 for k=1 to 5. The score of a user is the average of all the s(user,k) values for that user.
+If the true article appears in:
 
-The purpose of the competition is to develop a news recommendation system that can accurately predict the articles that a user is interested in based on their past click behavior.
+- Position 1 → score = 1.0
+- Position 2 → score = 0.5
+- Not in top 5 → score = 0
 
-The **MRR** evaluation metric has several **benefits** for news recommendation systems.
+This metric **rewards both hit accuracy and ranking quality**.
 
-Firstly, it considers the rank of the first clicked article for each user, which reflects the importance of presenting relevant news articles at the top of the recommendation list. This is critical for keeping users engaged and increasing their satisfaction with the recommendation system.
 
-Secondly, the reciprocal nature of the metric gives equal weight to all clicked articles, regardless of their position in the predicted ranking. This means that the evaluation is more focused on the relevance of the recommended articles, rather than the overall ranking of the list.
 
-## Key Steps
+## <big><strong>Recommendation System Overview</strong></big>
 
-1. Data preprocessing: Cleaning and preprocessing the collected data, such as removing duplicates, filling in missing values, and transforming data into a suitable format.
+### <strong>What is a Recommendation System Actually Doing?</strong>
 
-2. Exploratory data analysis (EDA): Exploring the data to gain insights and identify patterns or anomalies that could be relevant to the recommendation task.
-3. Feature engineering: Selecting or creating appropriate features from the data to represent user and item characteristics that are relevant to the recommendation task.
-4. Model development: Developing a recommendation algorithm or model that can learn from the selected features and make predictions or recommendations.
-5. Model evaluation: Evaluating the performance of the developed model using appropriate evaluation metrics, such as accuracy, precision, recall, or ranking-based metrics.
-6. Model optimization: Tuning or optimizing the model to improve its performance, often by adjusting hyperparameters or incorporating new features.
-7. Deployment and monitoring: Deploying the final model in a production environment and monitoring its performance over time, often using A/B testing or other experimental techniques.
+At its core, a recommendation system predicts what a user may be **interested in**, based on their previous interactions. But “interest” is not directly observable — it must be **inferred from behavior**.
 
-### Data Analysis
+Common **signals of interest** include:
 
-1. The user IDs in the training set and test set are not duplicated, meaning the user model in the test set has not been seen before.
-2. The minimum number of clicks for a user in the training set is 2, while in the test set it is 1.
-3. Users may click on the same article multiple times, but this only occurs in the training set.
-4. There is variability in the number of times users click on articles, which can be used to create features to measure user activity.
-5. There is also variability in the number of times articles are clicked on, which can be used to create features to measure article popularity.
-6. The relevance of articles to users is usually strong, so predicting whether a user is interested in an article is often related to their history of clicking on articles.
-7. There are differences in the length of articles that users click on, which can reflect their preferences for article length.
-8. Users also have different preferences for the topics of articles they click on, which can be reflected in features related to their topic preferences.
-9. The time intervals between when different users click on articles may also vary, reflecting differences in their preferences for article timeliness.
+- **Explicit feedback**: likes, favorites, follows, shares, comments.
+- **Implicit feedback**: dwell time, pauses, completion rate, exit behavior.
+- **Action traces**: click logs, item views, purchases.
 
-### Multiple Recall
+For example:
 
-### item-cf
+- In a video platform, even a **pause action** might indicate engagement — maybe the user is watching closely or planning to screenshot.
+- In a news app, **clicks and time-on-article** are usually the strongest signals of interest.
 
-#### Description
+<img src="https://towardsdatascience.com/wp-content/uploads/2022/11/1yPeDvQjUoFdLKb9CkxaFPA-768x430.png" width="800">
 
-Item Collaborative Filtering (item-cf) is a popular recommendation algorithm that is based on the similarity between items. It recommends items to users by identifying the items that are similar to the ones they have liked or interacted with in the past.
+------
 
-#### Core principle
+### <strong>Why Is Click the Core Signal?</strong>
 
-The core principle of item-cf is to calculate the similarity between items based on the historical interaction data of users. This is done by constructing an item-item similarity matrix, which stores the similarity scores between all pairs of items in the system. The similarity score between two items is calculated based on the number of users who have interacted with both items.
+Because it’s:
 
-#### Considerations
+- **Ubiquitous**: Every user leaves click traces.
+- **Immediate**: Happens early in the engagement funnel.
+- **Quantifiable**: Easy to collect, robust volume.
 
-One important consideration in item-cf is the **sparsity** of the user-item interaction matrix. Since most users only interact with a small subset of items in the system, the similarity scores between items may not be accurate or reliable. Therefore, techniques such as data normalization, feature weighting, and matrix factorization may be used to improve the performance of the algorithm.
+> Even if a user later likes or comments, **they must have clicked first**.
 
-#### Pros & Cons
+Thus, most systems — especially in cold-start or large-scale settings — rely on **click behavior as the primary learning signal**.
 
-One advantage of item-cf is its simplicity and efficiency. It is easy to implement and can handle large datasets with millions of items and users. Additionally, it does not require any user or item features, making it a versatile algorithm for a wide range of recommendation scenarios.
+------
 
-However, item-cf has several limitations. It suffers from the well-known cold start problem, where it cannot recommend items to new users or items with no historical interaction data. Additionally, it may suffer from the popularity bias problem, where it tends to recommend popular items to all users, leading to a lack of diversity in recommendations. Finally, it is not suitable for recommending items that are outside the user's historical preferences or that require a higher level of personalization.
+### <strong>Two-Stage Architecture: Recall → Rank</strong>
 
-### user-cf
+Modern large-scale recommender systems typically follow a **two-stage pipeline**:
 
-#### Description
+| Stage       | Example Models                 | Purpose                             | Predicts Click Probability? | Output        |
+| ----------- | ------------------------------ | ----------------------------------- | --------------------------- | ------------- |
+| **Recall**  | ItemCF, UserCF, YouTubeDNN     | Select a few hundred relevant items | ❌ Not necessarily accurate  | Candidate set |
+| **Ranking** | Logistic Regression, GBDT, DIN | Score and sort candidates           | ✅ Yes (CTR prediction)      | Ranked list   |
 
-User-based Collaborative Filtering (User CF) is a type of recommendation algorithm that is based on the idea that users who have similar preferences in the past will have similar preferences in the future. User CF finds similar users to a target user and recommends items that those similar users have liked or rated positively.
+- **Recall stage** = cast a wide net, filtering the universe (e.g., from 360k to 50 articles).
+- **Ranking stage** = precision targeting, predicting $P(\text{click})$ for each user-item pair.
 
-#### Core principle
+<img src="https://miro.medium.com/v2/resize:fit:1400/format:webp/0*w2yvcYmMCMffCa_o" width="800">
 
-The core principle of User CF is to compute the similarity between users based on their past interactions with items. This can be done using various similarity measures, such as cosine similarity or Pearson correlation coefficient. Once the similarity between the target user and other users is calculated, the system will recommend items that those similar users have interacted with in the past but the target user has not.
+------
 
-#### Considerations
+## <big><strong>Recommendation System Principles</strong></big>
 
-- User CF may suffer from the sparsity problem, as the number of users who have interacted with a particular item may be small. This can lead to inaccurate recommendations.
-- The quality of recommendations depends on the quality of the user-item interactions data. If the data is noisy or incomplete, the recommendations may be inaccurate.
-- User CF may also suffer from the cold start problem, where new users do not have enough interaction data to make accurate recommendations.
+### <strong>Core Idea: Predict Interaction Probability</strong>
 
-#### Pros & Cons
+A recommendation system doesn’t “decide” what to recommend.
+ It **estimates probabilities** and **lets ranking do the work**.
 
-Pros:
+### <strong>Scoring Formula (Multi-Behavior Fusion)</strong>
 
-- User CF can provide personalized recommendations to users based on their past interactions.
-- User CF does not require any information about the items being recommended, making it easy to implement and scalable.
-- User CF can provide diverse recommendations, as it recommends items that have been liked by similar users who may have different tastes.
+When using multi-task or multi-signal models:
+$$
+\text{Score} = P_{\text{click}} \cdot W_{\text{click}} + P_{\text{comment}} \cdot W_{\text{comment}} + \cdots
+$$
+Where:
 
-Cons:
+- $P$ are predicted probabilities for different behaviors.
+- $W$ are weights reflecting the business value of each behavior.
 
-- User CF may suffer from the sparsity problem, leading to inaccurate recommendations.
-- User CF is prone to the popularity bias, where popular items are recommended more frequently than less popular items.
-- User CF may not be able to capture long-term preferences or changes in user preferences over time.
+> These weights are typically tuned **via A/B testing**, and may change over time.
 
+#### Examples:
 
+- In early-stage platforms → **Follow** may be valued more ($W_{follow}$ ↑).
+- In later-stage platforms → **Click-through** or **completion** may matter more.
 
-<p align="center">
-  <img src="https://github.com/datoujinggzj/DS_Project_Portfolio/assets/99417740/ac09c35e-dbe0-4455-a119-380587b5607c" alt="Image" width="400" height="230">
-</p>
+<img src="https://drive.google.com/thumbnail?id=1wg7Lk9SLnV0iYjxCu8Iu3qZZXBqbxHpj&sz=s4000" width="500">
 
+------
 
-### Youtube DNN
+### <strong>Practical Trade-offs by Platform Stage</strong>
 
+- **Early-stage platforms**:
+  - Use **clicks** as the primary target.
+  - High volume makes them statistically significant even in small datasets.
+- **Mid-stage platforms**:
+  - Begin integrating **likes, follows, and shares** as **auxiliary objectives** or in **multi-task setups**.
+  - These actions reflect stronger engagement, though they’re less frequent.
+- **Mature platforms**:
+  - Experiment with **richer signals** like dwell time, scroll depth, rewatch rate.
+  - May implement custom event tracking (e.g. pause, zoom, repeat), through **event logging design**.
 
-<p align="center">
-  <img src="https://miro.medium.com/v2/resize:fit:1400/1*z2d15DN_eaiEMQeIhu-aAw.png" alt="Image" width="400" height="230">
-</p>
+------
 
-#### Description
+### <strong>Challenge: User Group Generalization</strong>
 
-Youtube DNN recall is a recommendation algorithm used in the YouTube recommendation system. It is a deep neural network-based model that predicts the probability of a user engaging with a video based on their viewing history and other features.
+Not all users behave the same.
 
-#### Core principle
+Some users **share preferences** with common groups, while others have **atypical interests** not represented well in the training set.	
+ This leads to the **user group generalization problem** — the model cannot learn good representations for “cold” or “mixed-preference” users.
 
-The core principle of Youtube DNN recall is to use deep learning models to learn the complex relationships between user behaviors and video features. It is a two-stage process. In the first stage, the model extracts features from user and video data using multiple layers of neural networks. In the second stage, it uses these features to predict the probability of user engagement with the video.
+> 🔍 Example: Tech content isn't only watched by stereotypical users (e.g., developers). Some fans may look totally unrelated by profile.
 
-#### Considerations
+This results in:
 
-- Training a deep neural network model requires a large amount of training data and significant computing resources.
-- Due to the complexity of the model, the training process may take a long time.
-- The model requires continuous training to adapt to changing user behavior and video content.
+- Low recall for certain users.
+- Overfitting to dominant behavior patterns.
+- Underperforming on niche or cold-start segments.
 
-#### Pros & Cons
+------
 
-Advantages:
 
-- The model can capture complex patterns and relationships between user behavior and video features that may not be easily identifiable with other recommendation algorithms.
-- The model can make personalized recommendations based on a user's viewing history and other features.
-- The model can adapt to changing user behavior and video content over time.
 
-Disadvantages:
+# <big><strong>1. Data Overview</strong></big>
 
-- The model is computationally intensive and may require significant resources to train and run.
-- The model may suffer from the cold-start problem for new users who have not yet established a viewing history.
-- The model may be biased towards popular videos or users, leading to potential issues with diversity and fairness in recommendations.
+------
 
-### Dual Tower
+## <big><strong>1.1 Dataset Overview</strong></big>
 
+We work with user interaction logs from a news application. The dataset includes approximately:
 
+- **300K users**
+- **2.9M clicks**
+- **360K unique articles**
 
+Each article has a corresponding **embedding vector** representation. The data is partitioned as follows:
 
-<p align="center">
-  <img src="https://github.com/datoujinggzj/DS_Project_Portfolio/assets/99417740/beb21227-d0f0-4b61-a258-eca0e079bcfa" alt="Image" width="400" height="330">
-</p>
+- **Training set**: 200K users’ click history
+- **Validation set A**: 50K users’ click history
+- **Prediction set B**: 50K users for final submission
 
+The main data files:
 
-#### Description
+| File Name             | Description                         |
+| --------------------- | ----------------------------------- |
+| `train_click_log.csv` | Training set: user click logs       |
+| `val_click_log.csv`   | Validation set A: user click logs   |
+| `articles.csv`        | Article metadata                    |
+| `articles_emb.csv`    | Article embeddings (249 dimensions) |
 
-Dual Tower Recall is a recommendation algorithm that uses two parallel neural networks, one for the user and one for the item, to learn user-item interactions and generate recommendations.
 
-#### Core principle
 
-The Dual Tower Recall algorithm consists of two parallel neural networks: the User Tower and the Item Tower. The User Tower takes as input the user's historical interactions and encodes them into a fixed-length vector. Similarly, the Item Tower takes as input the item's metadata and encodes it into another fixed-length vector. The two vectors are then compared to generate a score that represents the predicted user-item interaction. The model is trained using a pairwise ranking loss function to optimize the ranking of positive and negative interactions.
+### Column Dictionary
 
-#### Considerations
+| Column                | Description                                |
+| --------------------- | ------------------------------------------ |
+| `user_id`             | User ID                                    |
+| `click_article_id`    | Clicked article ID                         |
+| `click_timestamp`     | Click time (UNIX timestamp)                |
+| `click_environment`   | Click environment                          |
+| `click_deviceGroup`   | Device group                               |
+| `click_os`            | Operating system                           |
+| `click_country`       | Country                                    |
+| `click_region`        | Region                                     |
+| `click_referrer_type` | Type of referrer (e.g., direct, ad, etc.)  |
+| `article_id`          | Article ID (aligned with click_article_id) |
+| `category_id`         | Article category ID                        |
+| `created_at_ts`       | Article creation timestamp                 |
+| `words_count`         | Number of words in the article             |
+| `emb_1` to `emb_249`  | Embedding vector components                |
 
-1. The quality and amount of input data have a significant impact on the performance of the algorithm.
-2. The model may suffer from the cold-start problem, as it requires a certain amount of historical interaction data to generate recommendations.
-3. The training process can be computationally expensive and time-consuming, especially for large datasets.
 
-#### Pros & Cons
 
-Pros:
+------
 
-1. Dual Tower Retrieval can capture complex user-item interactions and generate accurate recommendations.
-2. It can handle both explicit and implicit feedback data.
-3. It can incorporate various types of metadata information, such as user demographic information and item attributes, to improve recommendation quality.
+## <big><strong>1.2 Click Log Preprocessing</strong></big>
 
-Cons:
+We began by sorting the click logs by timestamp and assigning reverse rank numbers for each user’s click sequence (i.e., most recent = 1).
 
-1. The algorithm requires a large amount of training data to perform well.
-2. It may not be suitable for recommending niche or long-tail items with limited interaction data.
-3. The training process can be computationally expensive and time-consuming.
+```python
+# Assign rank: latest click = 1
+trn_click['rank'] = trn_click.groupby('user_id')['click_timestamp'].rank(ascending=False).astype(int)
+```
 
-### Cold Start
+We also counted the number of articles each user clicked:
 
-<p align="center">
-  <img src="https://github.com/datoujinggzj/DS_Project_Portfolio/assets/99417740/6e0a6dcc-0bbc-4d98-8ef1-2c2fb2196237" alt="Image" width="400" height="230">
-</p>
+```python
+# Count number of clicks per user
+trn_click['click_cnts'] = trn_click.groupby('user_id')['click_timestamp'].transform('count')
+```
 
+- Every user in the training set clicked **at least 2 articles**.
+- There is **no user overlap** between the training and validation sets.
 
+------
 
+## <big><strong>1.3 Preliminary Exploration</strong></big>
 
-#### Description
+### Feature Distributions
 
-Cold Start Recall refers to the process of recommending items to new or cold start users who have no historical behavior data. It aims to provide a good user experience for new users and improve the system's coverage.
+We plotted the distribution of ten key columns to get an intuitive sense of the data:
 
-#### Core principle
+- **Click environment, device group, OS, country, region, referrer type**
+- **Article popularity (`click_article_id`), user activity (`click_cnts`), and click rank (`rank`)**
 
-The core principle of Cold Start Recall is to rely on user profile information and item metadata to recommend items that match the user's interests. For example, recommending items based on user demographic information, location, or item attributes such as genre or topic.
+<div align="center">   <img src="https://drive.google.com/thumbnail?id=1aQGKei3DK2ewNdQPWVt2Jw2icf7qpmcq&sz=s4000" width="800"><br />   <sub>Feature Distributions</sub> </div>
 
-#### Characteristics
+Key takeaway from `click_deviceGroup`:
 
-1. The recommendation is based on user profile information and item metadata, not on historical behavior data.
-2. The goal is to provide a good user experience for new users and improve the system's coverage.
-3. The recommendation accuracy may be lower than that of other recommendation methods that rely on historical behavior data.
+```python
+trn_click['click_deviceGroup'].value_counts(normalize=True)
+```
 
-#### Considerations
+| Device Group | Proportion |
+| ------------ | ---------- |
+| 1            | 60.95%     |
+| 3            | 35.55%     |
+| 4, 5, 2      | <4% total  |
 
-1. The accuracy of the recommendation is highly dependent on the quality and quantity of user profile information and item metadata.
-2. User privacy concerns may arise when collecting user profile information.
-3. The recommendation results may be biased towards popular or promoted items if item metadata is limited.
+Device type `1` dominates, suggesting mobile traffic is the majority.
 
-#### Pros & Cons
+------
 
-Pros:
+## <big><strong>1.4 Article Metadata</strong></big>
 
-1. It can provide a good user experience for new users and improve the system's coverage.
-2. It can help to solve the cold start problem and provide initial recommendations for new users.
-3. It does not require historical behavior data, making it suitable for new applications or systems.
+We explored the article-level metadata to understand content trends.
 
-Cons:
+### Word Count Distribution
 
-1. The recommendation accuracy may be lower than other methods that rely on historical behavior data.
-2. The quality and quantity of user profile information and item metadata may affect the recommendation results.
-3. User privacy concerns may arise when collecting user profile information.
+```python
+sns.histplot(item_df['words_count'], bins=60, kde=True)
+```
 
-## Feature Engineering
+<div align="center">   <img src="https://drive.google.com/thumbnail?id=18PzeNAMvlYP32Yb5cvQJzzoi7ac2wYSX&sz=s4000" width="800"><br />   </div>
 
+- The word count distribution is **strongly right-skewed**, with a sharp peak around 200 words.
+- While most articles are short-form (under 300 words), a small number of outliers exceed **6,000 words**, indicating the presence of long-read or in-depth content on the platform.
+- Such a distribution suggests that users primarily consume **quick-read news**, though longer-form content does exist and may serve niche or in-depth interest areas.
 
+```python
+# Violin / Box / KDE
+plot_distribution(item_df, 'words_count')
+```
 
-<p align="center">
-  <img src="https://github.com/datoujinggzj/DS_Project_Portfolio/assets/99417740/27f28afe-ca64-49fe-9b8a-219e06367a8e" alt="Image" width="400" height="230">
-</p>
+<div align="center">   <img src="https://drive.google.com/thumbnail?id=1lhkGjaf-92VMnTN3FDaMrBGSkeIj4nrp&sz=s4000" width="800"><br />   <sub></sub> </div>
 
+The **boxplot and violin plot** confirm the extreme skewness of the distribution, with most articles tightly clustered around the median.
 
-Some of the features that can be directly utilized from the given raw data include:
+Outliers on the far right suggest content heterogeneity, which can be leveraged for personalization (e.g., recommending long-form content to heavy readers).
 
-- User ID: each user in the dataset has a unique ID that can be used to identify the user.
-- Article ID: each article also has a unique ID that can be used to identify the article.
-- Click time: records the time when each user clicked on each article, which can be used to analyze user interest changes and temporal characteristics.
-- Click count: records the number of times each user clicked on each article, which can be used to measure user interest in different articles and article popularity.
-- Article category: some datasets provide category labels for each article, which can be used to analyze user interest and preferences for different article categories.
-- Article keywords: some datasets provide keywords for each article, which can be used to analyze user interest and preferences for different article topics.
-- User profile: some datasets provide basic user information and preference data, which can be used to analyze user interests and preferences.
+### Article Length Over Time
 
-Feature engineering is a crucial step in building a news recommendation system. Here are several aspects to consider when performing feature engineering:
+Average article length over years:
 
-### Article Features
+```python
+item_df['created_at'] = pd.to_datetime(item_df['created_at_ts'], unit='ms')
+item_df['year'] = item_df['created_at'].dt.year
+sns.lineplot(x='year', y='words_count', data=item_df, estimator='mean', ci=95)
+```
 
-Besides the inherent characteristics of an article, such as `category_id`, `created_at_ts`, and `words_count`, we can also extract text features from an article using NLP techniques. This can include features like the article's title, body, and keywords. We can use text preprocessing techniques like cleaning, tokenization, stop word removal, and stemming to process these text features. We can then use them to construct features like TF-IDF, bag-of-words, and n-gram features.
+<div align="center">   <img src="https://drive.google.com/thumbnail?id=1Q6uODPo5hYVb2pc-odalGoud5bqN-SSR&sz=s4000" width="800"><br />   <sub></sub> </div>
 
-### User Features
+- The average word count **fluctuated significantly between 2005–2010**, suggesting changes in content strategies or editorial guidelines.
+- After 2011, article length gradually stabilized and declined, possibly indicating a **shift toward mobile-friendly or bite-sized news** formats.
+- These changes could inform **time-aware models** or longitudinal content recommendation strategies.
 
-We can construct user profiles based on their basic information and behavior data, such as their age, gender, occupation, education level, location, click history, collection history, purchase history, etc. We can combine, encode, and normalize these features to create a user feature vector.
+## <big><strong>1.5 Category Distribution</strong></big>
 
-### Contextual Features
+We also analyzed the frequency of different `category_id` values to identify dominant content themes:
 
-To take into account the fact that users may have different interests and needs depending on the time, place, device, and environment, we can use contextual information to construct contextual features. For example, we can use the user's click time, click device, click location, and search history to create features like time series, geolocation, and device features.
+```python
+plot_distribution(item_df, 'category_id')
+```
 
-### User-Article Interaction Features
+<div align="center">     <img src="https://drive.google.com/thumbnail?id=1OeXs7yqP_Cnx9f9RMfGqDOlkkofwCHEJ&sz=s4000" width="800"><br />     <sub></sub>   </div>
 
-We can use user-article interaction data to construct interaction features, such as which articles the user clicked on, how many times they clicked, the time interval between clicks, whether the user collected or shared the article, etc. These features can reflect the user's interests and behavior towards the article.
+- The distribution is **highly imbalanced**, with a few category IDs dominating the dataset.
+- This may indicate that the platform leans heavily toward certain content types (e.g., sports, politics), which can bias recommendations unless explicitly corrected.
+- In future iterations, we could explore **category diversity** in user history as a feature to balance novelty and familiarity.
 
-### Label Features
+------
 
-By using the user's click behavior as the label, we can predict the user's click behavior based on certain rules or machine learning algorithms, and create label features. These features can be used to train and evaluate supervised learning algorithms.
+# <big><strong>2. Data Analysis</strong></big>
 
-**Notes:**
+## <big><strong>2.1 User Behavior Exploration</strong></big>
 
-When performing feature engineering, it's important to keep the following in mind:
+### Repeated Clicks
 
-- Feature selection: Select the most predictive features.
-- Feature scaling: Scale features so that they have similar scales and prevent the model's performance from degrading due to differences in feature scales.
-- Feature crossing: Cross different features to construct new features that can improve the model's generalization ability.
-- Data sampling: Sample data to avoid imbalanced data issues.
+We first analyzed whether users revisit the same article multiple times. After merging the training and validation datasets:
 
-## Data Modeling
+```python
+user_click_merge = pd.concat([trn_click, val_click])
+user_click_count = user_click_merge.groupby(['user_id', 'click_article_id'])['click_timestamp'].agg(['count']).reset_index()
+user_click_count['count'].value_counts(1).map(lambda x: f'{x:.2%}')
+```
 
-### LGB Ranker
+```css
+>>> 
+count
+1     99.25%
+2      0.72%
+3      0.03%
+4      0.00%
+5      0.00%
+6      0.00%
+10     0.00%
+7      0.00%
+13     0.00%
+Name: proportion, dtype: object
+```
 
-Description: LGB (LightGBM) is a gradient boosting framework that is designed to handle large-scale data and has been widely used in machine learning tasks such as classification, regression, and ranking. In this answer, we will focus on LGB's ranking model.
+- Over **99% of user-article interactions** are unique, indicating that **most users do not revisit the same article**.
+- Repeated clicks (≥2) occur in only ~0.7% of cases.
+- This can be used to construct a binary feature: *whether the user has re-clicked this article*.
 
-Core principle: LGB's ranking model is based on gradient boosting decision tree (GBDT) and it aims to learn a function that ranks the items according to their relevance to a given query. LGB uses pairwise ranking loss as its objective function, which compares the pairwise ranking of the predicted scores and the ground truth scores. In each boosting iteration, LGB trains a decision tree based on the gradients of the pairwise ranking loss, which leads to a better ranking performance.
+------
 
-Features:
+### User Activity Level
 
-1. Efficiency: LGB is designed to handle large-scale data and can achieve fast training and prediction speed.
-2. Flexibility: LGB supports a wide range of ranking algorithms, loss functions, and evaluation metrics, which can be customized according to different ranking tasks.
-3. Accuracy: LGB has shown competitive or even better ranking performance compared to other state-of-the-art ranking models.
-4. Regularization: LGB provides several regularization techniques such as feature fraction, bagging fraction, and lambda L1/L2, which can prevent overfitting and improve the generalization ability of the model.
+We calculated the **total number of articles clicked per user** to analyze user engagement:
 
-Considerations:
+```python
+user_click_item_count = user_click_merge.groupby('user_id')['click_article_id'].count()\
+                                        .to_frame('click_count').sort_values(by='click_count', ascending=False).reset_index()
+```
 
-1. Feature engineering: Appropriate feature engineering can improve the ranking performance of LGB. It is recommended to use relevant and informative features for the ranking task.
-2. Parameter tuning: LGB has several hyperparameters that need to be tuned, such as the learning rate, maximum depth, number of leaves, and feature fraction. A careful parameter tuning process is essential for obtaining the best ranking performance.
-3. Data preprocessing: LGB requires the input data to be in a specific format such as libsvm or pandas dataframe. It is important to preprocess the data before training the model.
+Based on click count quantiles, we classified users into three activity levels:
 
-Advantages:
+- **Low Activity**: ≤ 2 clicks
+- **Medium Activity**: 3–9 clicks
+- **High Activity**: ≥ 10 clicks
 
-1. Fast training and prediction speed: LGB is efficient in handling large-scale data and can achieve fast training and prediction speed.
-2. High accuracy: LGB has shown competitive or even better ranking performance compared to other state-of-the-art ranking models.
-3. Flexibility: LGB supports a wide range of ranking algorithms, loss functions, and evaluation metrics, which can be customized according to different ranking tasks.
-4. Regularization: LGB provides several regularization techniques that can prevent overfitting and improve the generalization ability of the model.
+<div align="center"> <img src="https://drive.google.com/thumbnail?id=1iq_97RNmjkezhJgHmYbrjuzhj5jTF4JS&sz=s4000" width="700"> </div>
 
-Disadvantages:
+- Users with **≤2 clicks** account for a **large proportion** and are considered **inactive users**.
+- A **small minority of users** contributed disproportionately large numbers of clicks. For example, the top 50 users all have **more than 100 clicks**.
+- These patterns suggest the platform has a **long-tail user engagement** distribution.
 
-1. High memory usage: LGB may consume a large amount of memory when dealing with large-scale data, which may cause memory issues on low-end devices.
-2. Sensitivity to parameter tuning: LGB has several hyperparameters that need to be tuned, and a suboptimal parameter setting may lead to poor ranking performance.
-3. Limited interpretability: Like most black-box models, LGB has limited interpretability, which may hinder its application in some scenarios where interpretability is crucial.
+## <big><strong>2.2 Article Click Distribution</strong></big>
 
-### LGB Classifier
+We analyzed how frequently different articles were clicked by users. The distribution showed a classic **long-tail pattern**, where:
 
-Description: LGB classifier is a type of gradient boosting classifier algorithm that is widely used in machine learning for classification tasks. It is an implementation of the gradient boosting decision tree algorithm, which uses a set of decision trees to make predictions.
+- A **small number of articles** received extremely high click counts (e.g., 15,000+).
+- A **majority of articles** were clicked only **once or twice**, indicating cold content.
 
-Core principles: The LGB classifier algorithm works by iteratively adding decision trees to a model, with each tree learning to correct the mistakes of the previous trees. During training, the algorithm calculates the gradients and hessians of the loss function, and then constructs a decision tree to fit the negative gradients. The algorithm then adjusts the weights of the training samples based on the error of the previous tree, and repeats the process until the model converges.
+<div align="center"> <img src="https://drive.google.com/thumbnail?id=1ggWjDXwjlFMZpL0pSMEyQ7W54yUZBIR4&sz=s4000" width="800"> <sub>Distribution of total article click counts (long-tail)</sub> </div>
 
-Features:
+To illustrate the **tail concentration**, we also plotted the top 100 most-clicked articles:
 
-- High accuracy: LGB classifier is known for its high accuracy and is often used in competitions such as Kaggle.
-- Fast training speed: LGB classifier is much faster than other gradient boosting algorithms due to its use of histogram-based algorithms.
-- Efficient memory usage: LGB classifier uses less memory than other gradient boosting algorithms due to its feature bundling technique and light-weight data structures.
-- Tunable parameters: LGB classifier has a wide range of tunable parameters, which makes it highly customizable for different use cases.
+<div align="center"> <img src="https://drive.google.com/thumbnail?id=1EG3QCIJ6lCdKbJi-1wDgsP7UnJc8zdTR&sz=s4000" width="800"> <sub>Click count distribution among top 100 articles</sub> </div>
 
-Considerations: When using LGB classifier, it is important to keep in mind:
+- Over 20 articles had more than **2,500** clicks.
+- The top 10 articles received between **11,000 and 15,000** clicks.
 
-- Overfitting: LGB classifier can easily overfit if the number of trees or the depth of the trees is too large.
-- Hyperparameter tuning: As with any machine learning algorithm, selecting the optimal hyperparameters for the LGB classifier is important for achieving good results.
-- Imbalanced datasets: LGB classifier may not perform well on imbalanced datasets, so resampling techniques or class weights may need to be applied.
+Such articles can be labeled as **hot articles**, and may influence model features around popularity and exposure.
 
-Advantages:
+To summarize:
 
-- High accuracy and fast training speed.
-- Efficient memory usage.
-- Customizable tunable parameters.
-- Handles missing values well.
+- **Hot articles**: Top 100 articles with >2500 clicks.
+- **Cold articles**: Articles with ≤2 clicks.
+- Article popularity is **extremely skewed**, which is a key characteristic in recommendation data.
 
-Disadvantages:
 
-- Prone to overfitting.
-- May not perform well on imbalanced datasets.
 
-### DIN
+## <big><strong>2.3 Article Co-Occurrence Analysis</strong></big>
 
-Description: DIN (Deep Interest Network) is a deep learning model designed for recommendation systems that can effectively capture user interest and item features in real-time, and has been widely used in the industry.
+### <big>**What is “Co-Occurrence”?** </big>
 
-Core principle: The core idea of DIN is to use an attention mechanism to dynamically model user interests based on their historical behavior and the features of items they have interacted with. Specifically, it first generates a user interest vector by attending to the item features that the user has interacted with, and then combines this vector with the user's historical behavior features to obtain the final prediction.
+Co-occurrence frequency refers to the **number of times two articles are read consecutively** by the same user.		
+ For example, if user A reads article 101 and then article 205, the pair (101, 205) gets a +1 count.
 
-Features:
+High co-occurrence may indicate **semantic or temporal relatedness**, such as articles covering the same news event or follow-up stories.
 
-1. Effective at capturing user interests: DIN can capture user interests in real-time and model the dynamics of user preferences over time, which is crucial for recommendation systems.
-2. Flexible and scalable: DIN is a flexible and scalable model that can incorporate various types of input features, such as user behavior features, item features, and context features.
-3. High performance: DIN has achieved state-of-the-art performance on several benchmark datasets in recommendation systems.
+------
 
-Considerations:
+### Application Scenarios
 
-1. Data sparsity: Like other deep learning models, DIN requires a large amount of training data to achieve good performance. Therefore, it may not be suitable for applications with sparse data.
-2. Computational complexity: DIN is a complex model that requires significant computational resources for training and inference.
-3. Interpretability: The attention mechanism used in DIN makes it challenging to interpret the model's predictions.
+- **Recommendation System**: Build a graph of co-clicked articles to support jump-to recommendations (e.g., “Users who read A often continue with B”)
+- **User Behavior Analysis**: Understand user browsing habits and patterns
+- **Topic Clustering**: Frequently co-clicked articles may indicate topic proximity and help enhance unsupervised content grouping
 
-Pros:
+------
 
-1. Effective at modeling user interests in real-time
-2. Flexible and scalable
-3. High performance on benchmark datasets
+### Observations from Co-Occurrence Statistics
 
-Cons:
+We sorted all article pairs by co-occurrence frequency and found:
 
-1. Requires a large amount of training data
-2. High computational complexity
-3. Challenging to interpret the model's predictions.
+```python
+# After sorting by timestamp, generate the next clicked article for each user.
+# This creates (current article, next article) pairs for downstream analysis.
+tmp = user_click_merge.sort_values('click_timestamp')
+tmp['next_item'] = tmp.groupby('user_id')[['click_article_id']].shift(-1)
 
-### Model Stacking
+# Count how often each article pair co-occurs in sequence.
+union_item = tmp.groupby(['click_article_id','next_item'])['click_timestamp'].agg({'count'}).reset_index().sort_values('count', ascending=False)
 
-<img src="https://media.geeksforgeeks.org/wp-content/uploads/20190515104518/stacking.png" alt="Stacking in Machine Learning - GeeksforGeeks" style="zoom:67%;" />
+# Get a quick statistical overview of the co-occurrence counts for all article pairs.
+union_item[['count']].describe().map(lambda x: f'{x:.1f}')
+```
 
-Introduction:
+| Statistic    | Value |
+| ------------ | ----- |
+| Mean         | 3.2   |
+| 50% Quantile | 1.0   |
+| 75% Quantile | 2.0   |
+| Max          | 2202  |
 
-Model stacking is a machine learning ensemble technique that combines multiple models to improve their predictive performance. It involves training a meta-model to learn how to best combine the predictions of base models.
+- Over **75%** of article pairs occurred **≤ 2 times**, suggesting most sequences are **incidental**.
+- A few article pairs showed **very high co-occurrence (up to 2202)**, indicating **highly frequent reading paths**.
 
-Core principle:
+To remove noise, a **frequency threshold** (e.g., ≥10) can be set to filter meaningful transitions.
 
-The core principle of model stacking is to leverage the strengths of different base models by combining them in a way that maximizes their predictive accuracy. This is achieved by training a meta-model on the outputs of the base models, with the goal of finding the optimal weights to assign to each model's predictions.
+------
 
-Characteristics:
+### Co-Click Graph Visualization
 
-1. Model stacking can often improve the predictive accuracy of the base models, especially when the models have different strengths and weaknesses.
-2. It allows for a more flexible approach to model selection and can be used with a wide range of machine learning algorithms.
-3. Model stacking can handle complex data distributions and can be used for both classification and regression tasks.
+We visualized the **top 10 most frequent article pairs** using a co-occurrence graph:
 
-Considerations:
+```python
+import networkx as nx
 
-1. Model stacking can be computationally intensive, as it requires training multiple models and a meta-model.
-2. Careful selection and tuning of base models is critical for the success of model stacking.
-3. Model stacking is sensitive to overfitting, and it is important to use appropriate validation and regularization techniques.
+# Get the top 20 most frequently co-occurring article pairs
+top_20_pairs = union_item.nlargest(20, 'count')
 
-Advantages and disadvantages:
+# Use NetworkX to build a graph where:
+# - Each node represents an article
+# - Each edge represents a sequential co-occurrence between articles
+# - Edge weight indicates the frequency of that co-occurrence
+G = nx.from_pandas_edgelist(top_20_pairs, 'click_article_id', 'next_item', ['count'])
 
-Advantages:
+# Set up the plot
+plt.figure(figsize=(8, 6))
+pos = nx.spring_layout(G, seed=42)  # Use spring layout for better spacing
 
-1. Model stacking can improve the predictive accuracy of the base models.
-2. It allows for a more flexible approach to model selection and can be used with a wide range of machine learning algorithms.
-3. Model stacking can handle complex data distributions and can be used for both classification and regression tasks.
+# Draw the network graph
+nx.draw(
+    G, pos, with_labels=True, node_size=2000, node_color='skyblue',
+    font_size=10, font_color='black', edge_color='gray', alpha=0.7
+)
 
-Disadvantages:
+# Add edge labels to display co-occurrence counts
+labels = nx.get_edge_attributes(G, 'count')
+nx.draw_networkx_edge_labels(G, pos, edge_labels=labels)
 
-1. Model stacking can be computationally intensive, as it requires training multiple models and a meta-model.
-2. Model stacking is sensitive to overfitting, and it is important to use appropriate validation and regularization techniques.
-3. Model stacking can be complex to implement and requires careful selection and tuning of base models.
+```
 
+- **Node** = article ID
+- **Edge** = co-occurrence between two articles
+- **Edge label** = frequency count
+
+<div align="center"> <img src="https://drive.google.com/thumbnail?id=1luxr5R5-5qbmmnG-zftIoPk_pwfNTQgH&sz=s4000" width="800"> <sub></sub> </div>
+
+This graph highlights high-frequency transitions between articles, which could be leveraged in:
+
+- Graph-based recommendation modules
+- Session-based models
+- Content exploration tools
+
+------
+
+### Further Exploration
+
+We extracted the **article metadata** for these co-clicked pairs to examine:
+
+- Do the articles belong to the **same category**?
+- Are they **long-form or short-form**?
+- Do their **titles** reflect the same event or theme?
+
+These insights can validate whether co-occurrence reflects **semantic relatedness** and support further content modeling efforts.
+
+
+
+## <big>2.4 Diversity of User Interests</big>
+
+To assess how broad each user's reading scope is, we counted the number of **distinct article categories** they’ve engaged with. This serves as a proxy for **content diversity preference**.
+
+```css
+>>>
+cate_count
+2–3 categories      110395
+4–5 categories       56904
+6–10 categories      55850
+11–20 categories     22894
+More than 20          3957
+1 category               0
+Name: count, dtype: int64
+```
+
+
+
+<div align="center">   <img src="https://drive.google.com/thumbnail?id=1vkCmipdZhMZrLDWVE4ZmVsBRrEoDKMpj&sz=s4000" width="600"><br></div>
+
+Key observations:
+
+- Nearly **45%** of users focus on just 2–3 categories, indicating relatively **narrow preferences**;
+- Only a small fraction (~4%) explore **20+ categories**, reflecting **broad and exploratory behavior**;
+- The absence of users with exactly one category suggests at least minimal cross-category browsing for all users.
+
+This indicator is valuable for user profiling. For example:
+
+- In **CF modeling**, users with similar interest breadth may have similar exposure bias;
+- In **content recommendation**, users with wide interests may benefit more from diverse feed strategies, while focused users may prefer tighter topic clusters.
+
+------
+
+## <big>2.5 Temporal Patterns of User Engagement</big>
+
+We analyzed users’ **average time gap between consecutive clicks** to uncover latent behavioral rhythms.
+
+<div align="center">   <img src="https://drive.google.com/thumbnail?id=1asMydYFzAeg5vsD1FlD_7SxOUTVmP4a7&sz=s4000" width="800"><br> </div>
+
+Findings:
+
+- The distribution is long-tailed, ranging from **intensive sessions** (clicks within seconds or minutes) to **sporadic behaviors** (intervals of several days);
+- Most users fall below the **1-day range**, with a clustering in the 10–60 minute band;
+- Even the **maximum observed gap** stays under **10,000 minutes (~7 days)**, suggesting that even low-frequency users return within a week — a useful assumption for session segmentation;
+- This temporal trait implies **session-based behaviors**, supporting the idea of grouping clicks into short activity bursts.
+
+This time-gap metric can be incorporated into:
+
+- **Retention models** (as a proxy for habitual engagement);
+- **Sequential models** (to weigh time-aware transitions between articles);
+- **User clustering**, distinguishing casual scrollers from dedicated readers.
+
+
+
+# <big><strong>3. Multi-Channel Recall</strong></big>
+
+## <big><strong>3.1 Overview and Design Logic</strong></big>
+
+### <big>**What is multi-channel recall?**</big>
+
+ Multi-channel recall refers to the **integration of multiple recall strategies**, each retrieving candidate items from a different angle. These channels are **independent and complementary**, and their outputs are merged to form a richer and more comprehensive candidate set for downstream ranking models.
+
+Typical recall channels include:
+
+- **User-based collaborative filtering (UserCF)**
+   Recommends items that similar users have interacted with.
+- **Item-based collaborative filtering (ItemCF)**
+   Recommends items similar to those the user has interacted with.
+- **Embedding-based similarity recall**
+   Recommends articles with high semantic similarity (e.g., via Word2Vec or other vector encodings).
+- **Popularity-based recall**
+   Supplements the recall set with hot articles to increase hit rate.
+- **Cold-start heuristics**
+   Introduces fresh or unexplored content for new users or items.
+
+<div align="center">   <img src="https://raw.githubusercontent.com/xei/recommender-system-tutorial/main/assets/retrieval_ranking.png" width="800"><br>   <sub>Multi-channel recall design: each channel retrieves independently and is merged for ranking</sub> </div>
+
+------
+
+### <big><strong>Why do we need multiple recall channels?</strong></big>
+
+Because **each method captures a different perspective**:
+
+- **UserCF** captures *user similarity*;
+- **ItemCF** captures *item-item associations*;
+- **Embedding-based** recall captures *semantic proximity*;
+- **Hot article / cold-start recall** improves *coverage and freshness*.
+
+> No single method can achieve optimal coverage and diversity — combining them helps mitigate individual weaknesses.
+
+For example:
+
+- Relying solely on UserCF may fail for new users (cold-start);
+- Embedding-based recall may struggle with sparse content or noisy representations;
+- Hot recall ensures recent or trending content is not missed.
+
+By merging all sources, we **increase the likelihood of including relevant items**, thereby improving **overall recall rate** while maintaining **computational efficiency**. Each strategy can be executed **in parallel**, allowing for scalable implementation in practice.
+
+
+
+## <big><strong>3.2 UserCF-based Recall</strong></big>
+
+### Objective
+
+To recommend articles that were clicked by users who are similar to the current user.
+ User similarity is calculated based on overlapping reading behavior and time-based weights.
+
+------
+
+### Approach
+
+UserCF (User-based Collaborative Filtering) assumes that users with similar behaviors tend to like similar items. The basic steps include:
+
+1. **Build user-item inverted table** to track which users clicked which articles.
+
+2. **Compute similarity between users**:
+
+   - Penalize popular articles using $\frac{1}{\log(1 + \text{user_count})}$.
+
+   - Apply time-decay weight to clicks:
+     $$
+     \text{sim\_weight} = \exp\left(0.8^{|\text{click}_i - \text{click}_j|}\right)
+     $$
+     
+
+3. **Aggregate neighbors' preferences** to recommend items that the similar users clicked but the current user has not.
+
+4. **Score each candidate item** with a combination of similarity and weight.
+
+<img src="https://drive.google.com/thumbnail?id=1Z6k-fB4WQgh8HWaxHiBTgatsvdCf0gyA&sz=s4000" width="500">
+
+------
+
+### Core Code Snippet
+
+```python
+# Time-decayed user similarity
+sim_user_time = np.exp(0.8 ** np.abs(click_time_user_i - click_time_user_j))
+
+# Build user-user similarity matrix
+user_sim_matrix = defaultdict(lambda: defaultdict(float))
+
+for article, users in item_user_clicks.items():
+    for u in users:
+        for v in users:
+            if u == v:
+                continue
+            user_sim_matrix[u][v] += 1 / math.log(1 + len(users)) * sim_user_time
+```
+
+------
+
+### Interpretation
+
+- Articles read by other users with similar click histories are selected as candidates.
+- Time decay gives higher weight to more recent interactions.
+- Popular items are down-weighted to avoid bias from frequently clicked articles.
+
+This strategy helps surface articles that “people like you also read,” especially when user-item interactions are rich.
+
+## <big><strong>3.3 ItemCF-based Recall</strong></big>
+
+### Objective
+
+To recommend articles similar to those that a user has previously clicked.		
+ Item similarity is derived from co-click frequency, adjusted by time decay and position bias.
+
+------
+
+### Approach
+
+ItemCF (Item-based Collaborative Filtering) leverages the idea that items often clicked together are likely similar. The steps:
+
+1. **Construct item co-occurrence matrix** based on users’ click sequences.
+
+2. **Apply time-decay and position weightings**:
+
+   - Time-based weight:
+     $$
+     w_{\text{time}} = \exp\left(0.8^{|\text{click}_i - \text{click}_j|}\right)
+     $$
+     
+
+   - Position-based weight:
+     $$
+     w_{\text{loc}} = \alpha \cdot 0.9^{|\text{loc}_i - \text{loc}_j| - 1}
+     $$
+     where $\alpha = 1.0$ if $j$ follows $i$ (forward), and $\alpha = 0.7$ if $j$ precedes $i$ (backward).
+
+3. **Downweight high-frequency items** to reduce popularity bias.
+
+4. **Aggregate scores** of similar items and return the top-N.
+
+------
+
+### Core Code Snippet
+
+```python
+# Compute item-item similarity
+item_sim_matrix = defaultdict(lambda: defaultdict(float))
+
+for user, item_seq in user_click_dict.items():
+    for i, item_i in enumerate(item_seq):
+        for j, item_j in enumerate(item_seq):
+            if item_i == item_j:
+                continue
+            time_weight = np.exp(0.8 ** abs(time_i - time_j))
+            loc_weight = (1.0 if j > i else 0.7) * 0.9 ** (abs(i - j) - 1)
+            item_sim_matrix[item_i][item_j] += time_weight * loc_weight / math.log(1 + len(item_seq))
+```
+
+------
+
+### Interpretation
+
+- This method focuses on **item-to-item transitions**, suitable for modeling article similarity.
+- Incorporating **time gap** and **reading order** captures user reading patterns better than plain co-occurrence.
+- The resulting item similarity matrix supports recommending "related articles" even for new users with sparse history.
+
+This module is especially useful when article metadata (like embedding or topic tags) is unavailable or unreliable.
+
+
+
+## <big><strong>3.4 Content-based Recall</strong></big>
+
+When a new article is published, we often lack user interaction history. To solve this **cold-start problem** and provide semantic-level matching, we use **article embeddings** to measure content similarity directly.
+
+By comparing embeddings of recently clicked articles with all articles, we can recommend semantically related ones, even if they have never been clicked.
+
+------
+
+### Cosine Similarity for Article Matching
+
+We use **cosine similarity** to measure how similar two articles are, based on their embedding vectors:
+
+```python
+def cos_sim(x, y):
+    return np.dot(x, y) / (np.linalg.norm(x) * np.linalg.norm(y))
+```
+
+To ensure efficient access and avoid repeated computation:
+
+```python
+# Construct a dictionary: {article_id: embedding vector}
+article_emb_dict = dict(zip(articles_emb_df['article_id'], articles_emb_df['emb'].apply(lambda x: np.array(x.split(' ')).astype(float))))
+```
+
+Then for each article, we compute top-k similar articles:
+
+```python
+def emb_sim_topk(article_id, top_k=10):
+    sim_dict = {}
+    a_vec = article_emb_dict[article_id]
+    for i in article_emb_dict.keys():
+        if i == article_id:
+            continue
+        sim = cos_sim(a_vec, article_emb_dict[i])
+        sim_dict[i] = sim
+    # Return top-k articles with highest similarity
+    return sorted(sim_dict.items(), key=lambda x: x[1], reverse=True)[:top_k]
+```
+
+------
+
+### Embedding-based User Recall
+
+To recall items for a given user:
+
+1. Select the **latest N clicked articles** of that user.
+2. For each article, retrieve top-K similar articles.
+3. Aggregate all retrieved articles as the candidate recall set.
+
+```python
+def emb_recall(user_item_dict, item_emb_dict, sim_item_topk=10, recall_item_num=100):
+    user_recall_dict = dict()
+    for user_id, item_list in tqdm(user_item_dict.items()):
+        rank = {}
+        for loc, i in enumerate(item_list):
+            if i not in item_emb_dict:
+                continue
+            sim_item_list = emb_sim_topk(i, sim_item_topk)
+            for j, sim in sim_item_list:
+                if j not in rank:
+                    rank[j] = sim * (0.9 ** loc)  # decay weight by click order
+                else:
+                    rank[j] += sim * (0.9 ** loc)
+        user_recall_dict[user_id] = sorted(rank.items(), key=lambda x: x[1], reverse=True)[:recall_item_num]
+    return user_recall_dict
+```
+
+------
+
+### FAISS for Efficient Similarity Search
+
+To handle large-scale article pools (e.g. 300k+ articles), we can replace brute-force cosine similarity with **FAISS**:
+
+- Developed by Facebook AI Research
+- Supports approximate nearest neighbor search
+- Enables real-time retrieval in embedding spaces
+
+```python
+import faiss
+
+# Normalize embeddings
+emb_matrix = np.array(list(article_emb_dict.values())).astype('float32')
+faiss.normalize_L2(emb_matrix)
+
+# Build index
+index = faiss.IndexFlatIP(emb_matrix.shape[1])  # inner product ≈ cosine similarity if normalized
+index.add(emb_matrix)
+
+# Query: top 10 most similar articles
+D, I = index.search(np.expand_dims(emb_matrix[0], axis=0), k=10)
+```
+
+We map back index `I` to `article_id` for interpretation.
+
+## <big><strong>3.5 Popularity-based Recall</strong></big>
+
+This is also a cold start problem. When there is no interaction history for a user (new user) or an article (new item), conventional collaborative filtering methods like UserCF or ItemCF fail to produce meaningful recommendations. In these cases, we need a fallback mechanism — one of the most effective and interpretable strategies is **recalling popular articles**.
+
+This popularity-based recall approach retrieves the most frequently clicked articles in the training data. The underlying assumption is simple yet robust: **if an article is widely read, it is more likely to interest a new user too.**
+
+The use cases could be:
+
+- **New users** with no click history (cold-start users)
+- **Sparse users** with only 1 or 2 clicks (insufficient signal for collaborative methods)
+- **Fallback component** in multi-channel recall, ensuring basic recommendation coverage for all users
+
+### Core Code Snippet
+
+```python
+# Calculate click counts for each article
+item_popularity = trn_click.groupby('click_article_id')['click_timestamp'].count() \
+                            .reset_index().sort_values(by='click_timestamp', ascending=False)
+
+# Rename columns
+item_popularity.columns = ['article_id', 'click_count']
+
+# Get top-N popular articles
+top_popular_articles = item_popularity['article_id'].tolist()[:topk]  # e.g., topk = 100
+```
+
+We can choose to recall a fixed number of top-N articles for every cold-start user or filter based on certain metadata (e.g., same region, same category) to increase precision.
+
+### Notes and Extensions
+
+- This method does **not personalize** recommendations, but it serves as a **low-risk, high-coverage default**.
+- We can further **customize** the popularity metric:
+  - Recent click counts (e.g., in the past 7 days)
+  - Weighted clicks (e.g., by dwell time or engagement)
+- In production systems, it's often **combined** with other cold-start strategies:
+  - **Content-based fallback** using embeddings or metadata similarity
+  - **Category-based recall** for new users with partial interest signals (e.g., onboarding tags)
+
+
+
+# <big><strong>4. Ranking Strategy</strong></big>
+
+## <strong>4.1 Rule-based Ranking</strong>
+
+After generating candidate articles from multiple recall channels — including UserCF, ItemCF, embedding similarity, and cold-start strategies — we need to **combine these results into a unified candidate pool** for downstream ranking.
+
+In this project, we used a **rule-based score aggregation strategy** to simulate ranking by combining outputs from multiple recall channels. Each channel (e.g., UserCF, ItemCF, Embedding similarity) returned a ranked list of candidate articles with a recall score.
+
+If the same article appears in multiple recall lists, this likely signals higher relevance — **aggregating scores leverages this signal**.
+
+### Merging Strategy
+
+For each user, we obtain multiple candidate lists:
+
+- `recall_usercf_dict`: user-based collaborative filtering results
+- `recall_itemcf_dict`: item-based collaborative filtering results
+- `recall_emb_dict`: content embedding similarity results
+- `recall_hot_dict`: popularity-based fallback results
+
+We use a loop to **merge these dictionaries** and consolidate article IDs.
+
+```python
+from collections import defaultdict
+
+# Initialize final recall pool
+final_recall_dict = defaultdict(dict)
+
+# Combine all strategies
+recall_dicts = [recall_usercf_dict, recall_itemcf_dict, recall_emb_dict, recall_hot_dict]
+
+for recall_channel in recall_dicts:
+    for user_id, item_dict in recall_channel.items():
+        for item_id, score in item_dict.items():
+            if item_id not in final_recall_dict[user_id]:
+                final_recall_dict[user_id][item_id] = score
+            else:
+                final_recall_dict[user_id][item_id] += score  # Optional: additive score
+```
+
+------
+
+### Output Structure
+
+Each user in `final_recall_dict` is associated with a dictionary:
+
+```python
+final_recall_dict[user_id] = {
+    item_id_1: aggregated_score_1,
+    item_id_2: aggregated_score_2,
+    ...
+}
+```
+
+This candidate pool is then passed to the **ranking module**, which will reorder items based on more complex user-item interaction signals and ranking models.
+
+------
+
+## <strong>4.2 Future Extensions</strong>
+
+To improve the recommendation accuracy, we can replace rule-based ranking with a **learning-based ranking model**, using training data and supervised labels (e.g., clicks).
+
+Common candidates include:
+
+- **Logistic Regression** (as a simple and interpretable baseline)
+- **LightGBM / XGBoost** (tree-based ranking models with strong performance)
+- **Deep Interest Network (DIN)**: A neural model that captures user interest evolution via attention on historical clicks
+
+These models can incorporate rich features such as:
+
+- User and article embeddings
+- Contextual features (e.g., device, time)
+- Interaction history
+- Article-level metadata
+
+Training such models requires labeled data and negative sampling strategies. This is a natural next step beyond multi-channel recall.
