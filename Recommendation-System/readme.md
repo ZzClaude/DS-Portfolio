@@ -58,9 +58,9 @@ We adopt a **position-decayed hit score** to evaluate the top-5 recommendations.
 - The **ground truth** is the actual last-clicked article for that user.
 
 We define the score as:
-$$
-\text{Score}(user) = \sum_{k=1}^5 \frac{s(user, k)}{k}
-$$
+
+$$\text{Score}(user) = \sum_{k=1}^5 \frac{s(user, k)}{k}$$
+
 Where:
 
 - $s(user, k) = 1$ if the $k$-th article matches the ground truth; otherwise $0$.
@@ -75,7 +75,6 @@ If the true article appears in:
 - Not in top 5 → score = 0
 
 This metric **rewards both hit accuracy and ranking quality**.
-
 
 
 ## <big><strong>Recommendation System Overview</strong></big>
@@ -139,9 +138,9 @@ A recommendation system doesn’t “decide” what to recommend.
 ### <strong>Scoring Formula (Multi-Behavior Fusion)</strong>
 
 When using multi-task or multi-signal models:
-$$
-\text{Score} = P_{\text{click}} \cdot W_{\text{click}} + P_{\text{comment}} \cdot W_{\text{comment}} + \cdots
-$$
+
+$$\text{Score} = P_{\text{click}} \cdot W_{\text{click}} + P_{\text{comment}} \cdot W_{\text{comment}} + \cdots$$
+
 Where:
 
 - $P$ are predicted probabilities for different behaviors.
@@ -657,12 +656,13 @@ UserCF (User-based Collaborative Filtering) assumes that users with similar beha
 
 2. **Compute similarity between users**:
 
-   - Penalize popular articles using $\frac{1}{\log(1 + \text{user_count})}$.
+   - Penalize popular articles using
+   
+     $$\frac{1}{\log(1 + \text{user}_\text{count})}$$.
 
    - Apply time-decay weight to clicks:
-     $$
-     \text{sim\_weight} = \exp\left(0.8^{|\text{click}_i - \text{click}_j|}\right)
-     $$
+     
+     $$\text{sim}_\text{weight} = \exp\left(0.8^{|\text{click}_i - \text{click}_j|}\right)$$
      
 
 3. **Aggregate neighbors' preferences** to recommend items that the similar users clicked but the current user has not.
@@ -718,15 +718,13 @@ ItemCF (Item-based Collaborative Filtering) leverages the idea that items often 
 2. **Apply time-decay and position weightings**:
 
    - Time-based weight:
-     $$
-     w_{\text{time}} = \exp\left(0.8^{|\text{click}_i - \text{click}_j|}\right)
-     $$
-     
+
+     $$w_{\text{time}} = \exp\left(0.8^{|\text{click}_i - \text{click}_j|}\right)$$
 
    - Position-based weight:
-     $$
-     w_{\text{loc}} = \alpha \cdot 0.9^{|\text{loc}_i - \text{loc}_j| - 1}
-     $$
+
+     $$w_{\text{loc}} = \alpha \cdot 0.9^{|\text{loc}_i - \text{loc}_j| - 1}$$
+
      where $\alpha = 1.0$ if $j$ follows $i$ (forward), and $\alpha = 0.7$ if $j$ precedes $i$ (backward).
 
 3. **Downweight high-frequency items** to reduce popularity bias.
