@@ -2,7 +2,7 @@
 
 <img src="https://miro.medium.com/v2/resize:fit:1101/1*Vd4TbG2Ocj4cZN2xOcMM8A.jpeg" alt="Image" width="500">
 
-## Background
+## Background 
 
 > Accurate cash flow forecasting is a critical component for manufacturing companies preparing for IPOs. Predicting financial trends, such as production, procurement, and sales-related cash flows, is essential to showcase financial stability and ensure alignment with investor expectations. By leveraging historical data and advanced forecasting models, this project supports IPO disclosures and enhances confidence among regulators and investors.
 
