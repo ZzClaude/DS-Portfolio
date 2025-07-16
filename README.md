@@ -62,12 +62,24 @@ Welcome to my Data Science portfolio! This repository showcases five projects I�
 ---
 
 ### 5. **Recommendation System for News App**
-- **Description**: Designed a recommendation system for 200K+ news app users using collaborative filtering, deep learning models, and YouTubeDNN.
-- **Skills**: Deep Learning, Sequence Modeling, Embedding Techniques, Word2Vec, LightGBM.
-- **Libraries Used**: 
-  - Deep Learning: `TensorFlow`, `DeepCTR`, `DeepMatch`, `Keras`.
-  - Embedding: `Word2Vec`, `FAISS`.
-  - Machine Learning: `LightGBM`.
-- **Key Results**: Enhanced click prediction accuracy by 20% using stacked and weighted fusion techniques.
+
+**Description**:    
+ 
+ Built a recommendation pipeline for 200K+ users based on clickstream data and article metadata. Combined multiple recall channels — including item-based collaborative filtering and embedding similarity (via Faiss) — to generate diverse candidate sets.
+ Applied a rule-based fusion mechanism to integrate recall results, with future work planned for LGB Ranker and DIN-based ranking.
+
+**Skills**:   
+
+Multi-channel Recall, User Behavior Modeling, Embedding Similarity Search, Ranking Pipeline Design.
+
+**Libraries Used**:
+
+- Recall & Retrieval: `Pandas`, `Faiss`, `Scikit-learn`, `NetworkX`.
+- Embedding & Similarity: `Word2Vec` (document-level), `Faiss`.
+- Ranking Framework: `LightGBM`, `DIN` (future integration).
+
+**Key Results**:    
+ 
+ Achieved ~20% improvement in top-K hit rate over baseline through score fusion across recall channels; ensured robust coverage for cold-start users.
 
 ---
