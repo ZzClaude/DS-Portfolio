@@ -23,7 +23,7 @@ The bank client manages the cash inflow and outflow of millions of members. Accu
 
 #### Potential benefits
 
-If we can accurately predict the daily inflows and outflows of the currency funds, it can bring the following potential benefits:
+If we can accurately predict the daily inflows and outflows of currency funds such as Yu'EBao, it can bring the following potential benefits:
 
 1. **Optimization of investment decisions:** Accurate predictions of fund inflows and outflows can help investors better understand market demand and redemption situations, thereby optimizing capital allocation and investment decisions. For example, if large inflows are predicted, investors can increase their subscription amount in a timely manner; if large outflows are predicted, investors can consider adjusting their redemption plan to avoid possible market risks.
 2. **Improve capital operation efficiency:** Accurately predicting the inflow and outflow of funds can help fund managers better plan and manage funds, thereby improving capital operation efficiency. For example, based on the predicted results, a reasonable fund investment plan can be arranged to avoid the situation of idle or insufficient funds, thus maximizing the return and utilization of funds.
@@ -118,13 +118,16 @@ Shanghai Interbank offered rate table includes 14-month lending rates per day am
 
 We expect to gain accurate forecasting of the daily amount of purchase and redemption in the next 30 days. The higher accuracy is preferred. However, we need to take different situations into account. For instance, some participants may have a result that shows 29 days’ accurate predictions but one day’s inaccurate prediction. Some participants may have a result that 30 days’ predictions are not accurate enough, with an average error of delta (delta is some small value). Adopt absolute error as the evaluation metric may result in a poorer score for the former than that of the latter. However, we prefer the model of the former in the real-world business. Therefore, we use the following evaluation metric. The final score-counting method is given as follows: We use the relative error of purchase and redemption to compute the daily score based on a scoring function. Then, summarize the daily scores. Finally the scores are weighted according to the factors of real-world business. We provide the details of the evaluation metric as follows.
 
-1) Calculating the relative error of purchase and redemption:
+1. Calculating the relative error of purchase and redemption:
 
-​	The daily purchase relative error (the real value $z_i$, predictive value $hat{z}_i$):
+   The daily purchase relative error (the real value $z_i$, predictive value $hat{z}_i$):
+
 $$
 \text{Purchase}_i = \frac{ \left| z_i - \hat{z}_i \right| }{ z_i }
 $$
-​	The daily redemption relative error (the real value $y_i$, predictive value $\hat{y}_i$):
+
+	The daily redemption relative error (the real value $y_i$, predictive value $\hat{y}_i$):
+
 $$
 \text{Redemption}_i = \frac{ \left| y_i - \hat{y}_i \right| }{ y_i }
 $$
@@ -205,7 +208,7 @@ Considering the pronounced cyclical patterns observed in the time series data of
 
 ---
 
-**Cycle Factor Model Baseline**
+#### **Cycle Factor Model Baseline**
 
 In view of the prominent cyclical patterns exhibited by the time series data of large anomalous transactions, this project adopts a cycle factor model for analysis.
 
@@ -236,7 +239,7 @@ In view of the prominent cyclical patterns exhibited by the time series data of 
 
 **Optimization:** While the median provides robust cyclical factors, other factors can be considered for optimization. One approach is to compute both the mean and median, and then blend them with proportions determined by test performance. Base optimization can involve considering a subset of recent days' averages (excluding cyclic effects) for better accuracy.
 
-**Core Codes:**
+#### **Core Codes:**
 
 ```python
 # Import necessary libraries
@@ -301,7 +304,7 @@ def generate_base(df: pd.DataFrame, month_index: int) -> pd.DataFrame:
 
 ### 3. Feature Engineering
 
-**Static Feature Extraction Based on Date**
+#### **Static Feature Extraction Based on Date**
 
 These "is" features capture different characteristics and conditions related to the dates, weekdays, and months in the dataset. 
 
@@ -326,7 +329,7 @@ The key "is" features extracted include:
 
 <div  align="center"><img  src="https://drive.google.com/thumbnail?id=1koSmurVhGadOZfSFVohc4sOlsdx-brag&sz=s4000"  width="800"><br><sub></sub></div> 
 
-**Distance-based Features Extraction**
+#### **Distance-based Features Extraction**
 
 These features capture various temporal distances between data points and certain reference points. 
 
@@ -345,19 +348,19 @@ we aim to enhance the dataset with features that capture temporal distances to v
 
 <div  align="center"><img  src="https://drive.google.com/thumbnail?id=1EB4gc2wyCCts6RwBK0n3_7B9A2CgNKzN&sz=s4000"  width="800"><br><sub></sub></div>
 
-**Peak-related Features Extraction**
+#### **Peak-related Features Extraction**
 
 <div  align="center"><img  src="https://drive.google.com/thumbnail?id=1_eLLJ1e-tuzM3f0E8CF0uPYrwCWn12RI&sz=s4000"  width="800"><br><sub></sub></div>
 
-**Cycle-related Features Extraction**
+#### **Cycle-related Features Extraction**
 
 We calculate purchase and redemption rates for different time intervals (weekdays and days of the month) within a given month. Also, we calculate average rates for each weekday and then calculate weighted rates based on the occurrence count of each weekday for each day of the month. This process helps uncover patterns in user purchase and redemption behaviors over specific time intervals within a month.
 
-**Dynamic Behavior Features Extraction**
+#### **Dynamic Behavior Features Extraction**
 
 We aim to extract dynamic features related to purchase behavior over different time intervals within a month. It calculates various statistical measures (median, mean, min, max, standard deviation, skewness) of purchase amounts for each weekday leading up to a specific date in the dataset. These statistics are computed from the data starting on March 31, 2014. 
 
-**Feature Selection**
+#### **Feature Selection**
 
 We remove features that are not effective in splitting the dataset.
 
@@ -365,11 +368,12 @@ We remove features that are not effective in splitting the dataset.
 
 We eliminated features that are highly correlated with each other. In other words, we remove multicollinear features by combining them and then checking the correlation between the combined feature and the original features. 
 
-**Winning Features Selection**
+#### **Winning Features Selection**
 
 <div  align="center"><img  src="https://drive.google.com/thumbnail?id=1VflJqE7BTvu0nd1bs2oinWAHtRPH9UOG&sz=s4000"  width="800"><br><sub></sub></div>
 
 <div align="center"><img src="https://drive.google.com/thumbnail?id=1csNoVbwn7x7sR-RWTEOglPVL99tjGtSh&sz=s4000" width="400"><br><sub></sub></div>
+
 
 
 ### 4. Model Development & Comparison
@@ -383,3 +387,4 @@ Utilized innovative techniques, such as weighted averaging of purchase and redem
 <div align="center"><img src="https://drive.google.com/thumbnail?id=1jy2Hyh_bGV3vc1t01fIFWua2UWqDcNtA&sz=s4000" width="700"><br><sub></sub></div>
 
 <div align="center"><img src="https://drive.google.com/thumbnail?id=1GDSA_njllI9x2d7AbmTRUzZ-M4Cq24p6&sz=s4000" width="700"><br><sub></sub></div>
+
