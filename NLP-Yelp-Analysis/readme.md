@@ -156,7 +156,7 @@ To assess whether high-rated and low-rated businesses cluster spatially, we use 
 
 We group Las Vegas businesses by their `stars` rating (1.0 to 5.0), extract their latitude and longitude, and create a time-lapse heatmap using `folium.plugins.HeatMapWithTime`.
 
-<div align="center"><img src="https://drive.google.com/thumbnail?id=1b_u8oC2IypRUxdQHlIJc0LwML87dLJAo&sz=s4000" width="800"><br><sub>Animated heatmap of business ratings by location (Las Vegas)</sub></div>
+<div align="center"><img src="https://github.com/ZzClaude/DS-Portfolio/blob/main/NLP-Yelp-Analysis/yelp_10.gif?raw=true" width="800"><br><sub>Animated heatmap of business ratings by location (Las Vegas)</sub></div>
 
 **Insights**
 
@@ -201,7 +201,7 @@ To understand the traits of Yelp’s most active contributors, we analyze the to
 
 We extract the top users by `review_count` from `yelp_review.csv`, then merge with `yelp_user.csv` and `yelp_business.csv` to trace their check-in locations. Using `folium.plugins.HeatMapWithTime`, we animate each user’s review trail by date.
 
-<div align="center"><img src="https://drive.google.com/thumbnail?id=1L-H2wgX7n9zz_4dE6OGHvBBiBC6wLOMw&sz=s4000" width="800"><br><sub>Heatmap animation of top user's review locations across time</sub></div>
+<div align="center"><img src="https://github.com/ZzClaude/DS-Portfolio/blob/main/NLP-Yelp-Analysis/yelp_12.gif?raw=true" width="800"><br><sub>Heatmap animation of top user's review locations across time</sub></div>
 
 **Insights**
 
