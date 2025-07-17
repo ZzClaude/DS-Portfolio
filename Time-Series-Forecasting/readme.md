@@ -41,44 +41,44 @@ This project was conducted for a manufacturing company undergoing IPO preparatio
 
 A total of 2.8 million records covering cash flow behaviors related to production, procurement, and sales from July 2013 to August 2014 were analyzed. Data attributes include daily transaction details for different cash flow categories.
 
-| Attribute         | Type    | Description                                | Example  |
-| ----------------- | ------- | ------------------------------------------ | -------- |
-| report_date       | string  | Transaction Date                          | 20140831 |
-| sales_amount      | bigint  | Daily sales revenue                       | 500000   |
-| procurement_cost  | bigint  | Daily procurement expense                 | 300000   |
-| operational_cost  | bigint  | Daily operational expense                 | 200000   |
+| Attribute        | Type   | Description               | Example  |
+| ---------------- | ------ | ------------------------- | -------- |
+| report_date      | string | Transaction Date          | 20140831 |
+| sales_amount     | bigint | Daily sales revenue       | 500000   |
+| procurement_cost | bigint | Daily procurement expense | 300000   |
+| operational_cost | bigint | Daily operational expense | 200000   |
 
 #### 2. Production Metrics Table
 
 Detailed records of production output, inventory levels, and raw material usage were included to model the impact of production activity on cash flow.
 
-| Attribute       | Type    | Description                                | Example  |
-| --------------- | ------- | ------------------------------------------ | -------- |
-| production_date | string  | Date of production activity                | 20140831 |
-| output_units    | bigint  | Units produced                             | 15000    |
-| inventory_level | bigint  | Remaining inventory after production       | 12000    |
+| Attribute       | Type   | Description                          | Example  |
+| --------------- | ------ | ------------------------------------ | -------- |
+| production_date | string | Date of production activity          | 20140831 |
+| output_units    | bigint | Units produced                       | 15000    |
+| inventory_level | bigint | Remaining inventory after production | 12000    |
 
 #### 3. Historical Cost Data
 
 The data includes historical operational costs, such as raw material prices, utility costs, and labor expenses, to capture trends affecting cash flow.
 
-| Attribute         | Type    | Description                                | Example  |
-| ----------------- | ------- | ------------------------------------------ | -------- |
-| cost_date         | string  | Date of cost record                       | 20140831 |
-| material_cost     | bigint  | Cost of raw materials                     | 250000   |
-| utility_cost      | bigint  | Utility costs for production              | 50000    |
-| labor_cost        | bigint  | Labor costs for the day                   | 100000   |
+| Attribute     | Type   | Description                  | Example  |
+| ------------- | ------ | ---------------------------- | -------- |
+| cost_date     | string | Date of cost record          | 20140831 |
+| material_cost | bigint | Cost of raw materials        | 250000   |
+| utility_cost  | bigint | Utility costs for production | 50000    |
+| labor_cost    | bigint | Labor costs for the day      | 100000   |
 
 #### 4. External Economic Indicators
 
 Macro-level indicators such as market demand, interest rates, and commodity prices are included to provide additional context for cash flow forecasting.
 
-| Attribute           | Type    | Description                                | Example  |
-| ------------------- | ------- | ------------------------------------------ | -------- |
-| indicator_date      | string  | Date of economic indicator                | 20140831 |
-| market_demand_index | double  | Index of market demand                    | 1.25     |
-| interest_rate       | double  | Daily interest rate (%)                   | 3.5      |
-| commodity_price     | double  | Price of key commodities ($/unit)         | 50.75    |
+| Attribute           | Type   | Description                       | Example  |
+| ------------------- | ------ | --------------------------------- | -------- |
+| indicator_date      | string | Date of economic indicator        | 20140831 |
+| market_demand_index | double | Index of market demand            | 1.25     |
+| interest_rate       | double | Daily interest rate (%)           | 3.5      |
+| commodity_price     | double | Price of key commodities ($/unit) | 50.75    |
 
 
 ### Evaluation
@@ -88,15 +88,18 @@ The objective of this project is to forecast daily cash inflows (sales) and outf
 #### Scoring Function
 
 1. **Relative Error Calculation**:
+
    - Compute the relative error between actual and forecasted values for key metrics (sales, procurement, and operational costs).
 
    $$\text{Relative Error} = \frac{\lvert \text{Actual Value} - \text{Predicted Value} \rvert}{\text{Actual Value}}$$
 
 2. **Weighted Scoring**:
+
    - Errors are penalized based on business criticality (e.g., procurement errors during high-demand periods receive higher weights).
    - A scoring function $f(*)$ is applied to evaluate daily predictions, with higher penalties for larger errors.
 
 3. **Final Score Calculation**:
+
    - Aggregate the weighted daily scores for each cash flow category (sales, procurement, and operational costs).
    - Apply business-specific weights to prioritize metrics critical for IPO reporting.
 
@@ -111,44 +114,44 @@ The objective of this project is to forecast daily cash inflows (sales) and outf
 - **Time Series Analysis and Visualization**  
   Analyzed cyclical patterns in cash flows related to sales, procurement, and production activities to identify seasonality and trends.
 
-![image](https://github.com/datoujinggzj/DS_Project_Portfolio/assets/99417740/bd3aaba0-135c-475a-ba3b-c0681e29400f)
+<div  align="center"><img  src="https://drive.google.com/thumbnail?id=14wDaiA4panAUl_rPcFTPkXZ3tC7j_VRk&sz=s4000"  width="800"><br><sub></sub></div>
 
 - **Difference in Sales and Procurement Total Amounts from Monday to Sunday**  
   Explored weekly patterns to detect variations in cash flow distribution.
 
-![image](https://github.com/datoujinggzj/DS_Project_Portfolio/assets/99417740/a66e9deb-b701-44c5-a5a7-fbd51769e5fb)
+<div  align="center"><img  src="https://drive.google.com/thumbnail?id=1hZBiXFOYJfK0ghseQXbS4UcTrWOLSuNm&sz=s4000"  width="800"><br><sub></sub></div>
 
 - **Month Feature Analysis**  
   Assessed monthly trends to identify cash flow seasonality and its alignment with operational cycles.
 
-![image](https://github.com/datoujinggzj/DS_Project_Portfolio/assets/99417740/d991c6ba-78e7-4f0e-abfc-6d296969d241)
+<div  align="center"><img  src="https://drive.google.com/thumbnail?id=1loLOiOwu54quzO0MNrNfYIhK7pAQ7Yo1&sz=s4000"  width="800"><br><sub></sub></div>
 
 - **Date Feature Analysis**  
   Investigated daily cash flow fluctuations to capture high and low activity periods.
 
-![image](https://github.com/datoujinggzj/DS_Project_Portfolio/assets/99417740/31d287e2-0b14-4e17-8114-98201596aa96)
+<div  align="center"><img  src="https://drive.google.com/thumbnail?id=1y1DrYAm_xw0nqWumDqKBpY1sGfrBFB9i&sz=s4000"  width="800"><br><sub></sub></div>
 
 - **Holiday Analysis**  
   Examined the impact of public holidays on sales and procurement activities.
 
-![image](https://github.com/datoujinggzj/DS_Project_Portfolio/assets/99417740/2d5e37a9-8404-4afd-92f4-469ceb44dbe1)
+<div  align="center"><img  src="https://drive.google.com/thumbnail?id=120Lb_kRHczNl6iBJKppusjczjLAu3FkT&sz=s4000"  width="800"><br><sub></sub></div>
 
 - **Analysis of Large Anomalous Transactions**  
   Investigated outlier transactions to mitigate their impact on forecast accuracy.
 
-![image](https://github.com/datoujinggzj/DS_Project_Portfolio/assets/99417740/a25f4db3-8f24-418b-b38e-bd642786573a)
+<div  align="center"><img  src="https://drive.google.com/thumbnail?id=1KLdnf1qR7jlST4BI7VQ2PcoOuiSyptzQ&sz=s4000"  width="800"><br><sub></sub></div>
 
 - **Correlation Analysis**  
   Evaluated correlations between key cash flow metrics and external factors (e.g., interest rates, market demand).
 
-![image](https://github.com/datoujinggzj/DS_Project_Portfolio/assets/99417740/f9fba23b-b652-4a7e-97d2-8359b32cdfee)
+<div  align="center"><img  src="https://drive.google.com/thumbnail?id=17xyWhIsk_8tBtN9-i-8oCLVGB-d_BOGj&sz=s4000"  width="800"><br><sub></sub></div>
 
 - **Analysis of Bank and Operational Interest Rates**  
   Assessed the relationship between cash flow trends and borrowing costs.
 
-![image](https://github.com/datoujinggzj/DS_Project_Portfolio/assets/99417740/511e17d5-c143-439d-818d-4b7fcd883324)
+<div  align="center"><img  src="https://drive.google.com/thumbnail?id=12bpxHjAaHV1thK2w4LtgS89rWGy_fC9U&sz=s4000"  width="800"><br><sub></sub></div>
 
-![image](https://github.com/datoujinggzj/DS_Project_Portfolio/assets/99417740/5f89cb95-74c6-4425-b352-328eae65851b)
+<div align="center"><img src="https://drive.google.com/thumbnail?id=1qhcYY1eBDL-kz63fx_9Y8FrdX3Xwh2H8&sz=s4000" width="800"><br><sub></sub></div>
 
 
 
@@ -160,10 +163,10 @@ Given the pronounced cyclical patterns in the cash flow data of the manufacturin
 
 1. **Calculation of Cyclical Factors (factors):**
    - Captures recurring patterns (e.g., weekly sales peaks, monthly procurement spikes) observed in the cash flow data.
-   
+
 2. **Calculation of Baseline (base):**
    - Determines the underlying trend of cash flow behavior independent of seasonal or cyclical effects.
-   
+
 3. **Forecasting Process:**
    - Future cash flows are predicted by multiplying the baseline values with corresponding cyclical factors:
      $$\text{Forecast} = \text{Base} \times \text{Factors}$$
@@ -211,7 +214,7 @@ Derived static features from time-related attributes to capture meaningful patte
   - `is_premonth`, `is_midmonth`, `is_tailmonth`: Identifies whether the day belongs to the beginning, middle, or end of the month.
   - `is_first_week`, `is_second_week`, `is_third_week`, `is_fourth_week`: Indicates which week of the month the day falls into.
 
-![image](https://ice.frostsky.com/2023/08/19/5b8b7f979b2bae65fd5c44c1f10016cd.png)
+<div  align="center"><img  src="https://drive.google.com/thumbnail?id=1N-ZXV58PEvkH9un4Pz7N7bc8tdJPsXAc&sz=s4000"  width="800"><br><sub></sub></div>
 
 ---
 
@@ -223,7 +226,7 @@ Enhanced the dataset by calculating temporal distances to key reference points, 
 - `dis_to_work` and `dis_from_work`: Distance to the next and previous working days.
 - `dis_from_startofmonth` and `dis_from_endofweek`: Distance from the start of the month and the end of the week.
 
-![image](https://ice.frostsky.com/2023/08/19/017de87ec8dd269f5913c38143e0f7f4.png)
+<div  align="center"><img  src="https://drive.google.com/thumbnail?id=1EB4gc2wyCCts6RwBK0n3_7B9A2CgNKzN&sz=s4000"  width="800"><br><sub></sub></div>
 
 ---
 
@@ -246,7 +249,7 @@ Extracted dynamic features reflecting the variability of purchase behaviors over
 
 Removed multicollinear and non-informative features to improve model interpretability and predictive power. The winning features were selected based on their ability to enhance forecasting accuracy.
 
-![image](https://ice.frostsky.com/2023/08/19/5d82c469e0cbf7c618e62377df748ada.png)
+<div  align="center"><img  src="https://drive.google.com/thumbnail?id=1zEbk1hjYtXYAMw0w3K9EIzFUaWWNDced&sz=s4000"  width="800"><br><sub></sub></div>
 
 
 
@@ -256,14 +259,10 @@ Developed a diverse set of over 10 systematic forecasting models, including univ
 
 Utilized innovative techniques, such as weighted averaging of purchase and redemption errors, leading to the identification of the best-performing model—LSTM—exhibiting an impressive uplift in predictive accuracy.
 
-![image](https://github.com/datoujinggzj/DS_Project_Portfolio/assets/99417740/bdaebde3-8af0-4c43-a9b1-05ee6a01887d)
+<div  align="center"><img  src="https://drive.google.com/thumbnail?id=16aNrmQchgUR4kP4ulVJBlNChtlsR736h&sz=s4000"  width="800"><br><sub></sub></div>
+
+<div align="center"><img src="https://drive.google.com/thumbnail?id=1jy2Hyh_bGV3vc1t01fIFWua2UWqDcNtA&sz=s4000" width="800"><br><sub></sub></div>
 
 
-<p align="center">
-  <img src="https://ice.frostsky.com/2023/08/19/ebc04d85bdb7e8fb8da494e39a6c9b9d.png" alt="Image" width="600" height="310">
-</p>
 
-
-<p align="center">
-  <img src="https://github.com/datoujinggzj/DS_Project_Portfolio/assets/99417740/ff60b0cf-40bf-46bb-a821-f570545e002d" alt="Image" width="600" height="310">
-</p>
+<div align="center"><img src="https://drive.google.com/thumbnail?id=1GDSA_njllI9x2d7AbmTRUzZ-M4Cq24p6&sz=s4000" width="800"><br><sub></sub></div>
