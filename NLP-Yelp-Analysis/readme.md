@@ -1,146 +1,388 @@
-# Unveiling Business Insights - A Comprehensive Data Analysis of Yelp Dataset
+## <big><strong>Project Overview</strong></big>
 
-<div STYLE="page-break-after: always;"></div> 
+This project conducts a comprehensive data analysis on the Yelp dataset, with a focus on leveraging **NLP techniques, geospatial mapping, and social network analysis** to uncover insights on business performance, user behavior, and community structure.
 
-##  What is Yelp?
+Our objective is to go beyond surface-level EDA and explore how user-generated content (UGC)—particularly **review text and reactions (useful, funny, cool)**—can inform **rating optimization, platform governance, and community strategy**.
 
-<img src="https://corinthiantransportation.com/wp-content/uploads/2021/09/yelp.jpg" alt="Image" width="700">
+<div align="center"><img src="https://diablogym.net/wp-content/uploads/2018/01/yelp-logo-22.png" width="500"><br><sub>Yelp as a multi-sided platform connecting users, businesses, and the review ecosystem</sub></div>
 
-Yelp is an online platform that allows users to search for and browse information about businesses, including their address, phone number, hours of operation, and other details. It also enables users to view reviews and ratings of businesses written by other users, and to write and publish their own reviews and comments. Yelp's review system leverages the power of social networking, encouraging users to share their experiences and opinions about businesses, which helps other users to find better businesses. Yelp was founded in 2004 in the United States and has expanded to other countries including Canada, the United Kingdom, Australia, France, Germany, Italy, and Switzerland, among others.
+------
 
-## Background
+### <big><strong>Stakeholder Perspectives</strong></big>
 
-The Yelp dataset is a collection of data related to businesses, reviews, users, and other interactions on the Yelp platform. The dataset includes information from several cities across the United States, covering a variety of business categories and user demographics.
+This project is grounded in the needs of three key stakeholders on the Yelp platform:
 
-The purpose of this dataset is to enable researchers, data analysts, and data scientists to explore and analyze the dynamics of the Yelp platform and gain insights into user behavior, business performance, and market trends. With the increasing popularity of online review platforms like Yelp, this dataset provides a valuable resource for understanding the factors that influence customer satisfaction, business success, and platform growth.
+- **Platform operators**
+   Analyze review credibility, elite user influence, and geographic trends to inform rating governance, community growth, and potential monetization strategies.
+- **Users (reviewers and readers)**
+   Understand how user sentiment, review style, and reaction patterns vary across elite and regular users to improve recommendation, trust signals, and user experience.
+- **Businesses**
+   Identify how reviews reflect product/service issues, when and where customer engagement peaks, and how review feedback aligns with operational decisions (e.g., opening hours, location planning).
 
-In addition, the Yelp dataset is a widely used benchmark dataset for evaluating the performance of machine learning algorithms, particularly in the areas of natural language processing, sentiment analysis, and recommendation systems. By providing a large and diverse dataset that reflects real-world interactions and behaviors, the Yelp dataset allows researchers to develop and test new algorithms and models that can be applied to other online platforms and domains.
+------
 
-Overall, the Yelp dataset is a valuable resource for anyone interested in exploring the dynamics of online review platforms and understanding the factors that influence user behavior, business success, and platform growth.
+### <big><strong>Project Goal and Scope</strong></big>
 
-## About Dataset
+This analysis aims to answer five core questions:
 
-[Data Source](https://drive.google.com/drive/folders/1YL5eo2ko3elyS5r0fC879d74XDuvJV40?usp=drive_link)
+- What drives differences in business ratings?
+- How do reaction metrics (useful/funny/cool) relate to sentiment and review quality?
+- Can we extract reliable signals from free-text reviews to support fraud detection or risk segmentation?
+- What are the spatial and temporal patterns in business activity and user behavior?
+- How does the user friendship network inform influence, community, or engagement clusters?
 
-![image-20230505225633404](https://github.com/datoujinggzj/DS_Project_Portfolio/assets/99417740/51f0736c-5d6b-4f78-b20c-72248215a1de)
+We use Python-based analysis on multiple components of the Yelp dataset (business, user, review, tip, check-in) and apply tools including:
 
-This dataset is a subset of Yelp's businesses, reviews, and user data. It was originally put together for the Yelp Dataset Challenge which is a chance for students to conduct research or analysis on Yelp's data and share their discoveries. In the most recent dataset you'll find information about businesses across 8 metropolitan areas in the USA and Canada.
+- **TextBlob** for sentiment analysis
+- **Folium / Cartopy** for map-based visualizations
+- **NetworkX** for graph construction and community detection
 
+The goal is not to train a full recommendation model, but to surface interpretable insights that could inform **product strategy, risk management, and community engagement design**.
 
 
-1. `yelp_business.csv`: This file contains information about businesses on the Yelp platform, including their ID, name, address, latitude and longitude, star rating, categories, and city.
-2. `yelp_business_attributes.csv`: This file contains attributes of businesses, such as whether they offer Wi-Fi or have a parking lot.
-3. `yelp_business_hours.csv`: This file contains information about the hours of operation of businesses, including the opening and closing times for each day of the week.
-4. `yelp_checkin.csv`: This file contains check-in information for businesses, such as the time and date when users check in.
-5. `yelp_review.csv`: This file contains reviews of businesses, including the user ID, business ID, rating, review text, and date of the review.
-6. `yelp_tip.csv`: This file contains tips and suggestions from users about businesses, such as recommended dishes or things to watch out for.
-7. `yelp_user.csv`: This file contains information about Yelp users, including their ID, name, registration time, and average rating.
 
----
+### <big><strong>Dataset Description</strong></big>
 
-When we use the Yelp dataset for data analysis, we can analyze the data from the perspectives of the platform, users, and merchants, and obtain the following benefits:
+This project leverages multiple structured datasets derived from Yelp’s public data release. The data reflects real user-business interactions across multiple U.S. and Canadian cities, and is ideal for analyzing consumer behavior, business reputation, and social dynamics on a local platform.
 
-### Platform perspective
+We focus on the following five core datasets:
 
-From the platform's perspective, we can use the Yelp dataset to analyze user behavior and merchant operations, thereby guiding platform operations and marketing strategies. For example, we can analyze popular merchants and user preferences on the Yelp platform to provide more accurate targeting services to merchants and advertising clients. In addition, we can use data to analyze the development of cities to discover new business opportunities and market trends. For example, we can analyze the number and rating of merchants in different cities to understand which cities have more intense market competition and which cities have more promising business opportunities.
+| File                | Description                                                  |
+| ------------------- | ------------------------------------------------------------ |
+| `yelp_business.csv` | Metadata of businesses including name, category, location, star rating, and review count |
+| `yelp_user.csv`     | User-level attributes such as review count, average stars, elite status, compliment counts, and social links |
+| `yelp_review.csv`   | Full-text reviews with associated star ratings and reaction counts (useful, funny, cool) |
+| `yelp_tip.csv`      | Short user-generated tips or suggestions for businesses      |
+| `yelp_checkin.csv`  | Timestamped business check-in logs indicating temporal activity patterns |
 
-### User perspective
+<div align="center"><img src="https://drive.google.com/thumbnail?id=1EE9ms0pOAym20IBah3FSc1sPMQ2JIGgt&sz=s4000" width="800"><br><sub>Entity relationships and schema overview of Yelp datasets</sub></div>
 
-From the user's perspective, we can use the Yelp dataset to analyze user behavior, taste preferences, and opinions and suggestions to provide better services and experiences for merchants. For example, we can analyze user check-ins and reviews on the Yelp platform to understand the types of merchants and service quality that users prefer. In addition, we can use data to analyze user suggestions and opinions to provide better products and services to merchants. For example, we can analyze user suggestions for different merchants on the Yelp platform to help merchants improve their products or services.
+These datasets are joined primarily through `business_id` and `user_id`, enabling both micro-level analysis (e.g., review sentiment trends) and macro-level patterns (e.g., elite user behavior, category distributions, city-level saturation).
 
-### Business perspective
+A subset of ~170,000 businesses and ~1 million reviews was sampled and cleaned to support faster iteration in exploratory and NLP tasks.
 
-From the merchant's perspective, we can use the Yelp dataset to analyze merchant reviews, check-ins, and business hours to improve service quality and optimize business models. For example, we can analyze the ratings and reviews of merchants on the Yelp platform to improve their products and services. In addition, we can use data to analyze merchant check-ins and business hours to optimize their business strategies and increase customer traffic. For example, we can analyze customer traffic during different time periods and workdays to help merchants arrange more reasonable working hours and manpower resources.
 
-In summary, using the Yelp dataset for data analysis can provide insights into the operation of the Yelp platform and user behavior from multiple perspectives, thereby providing better services to the platform and better operational strategies to merchants.
 
-## Analysis Perspectives
+## <big><strong>1. Exploratory Data Analysis</strong></big>
 
-### Business Types and Locations
+### <big><strong>1.1 Business Rating Distribution</strong></big>
 
-<p align="center">
-  <img src="https://github.com/datoujinggzj/DS_Project_Portfolio/assets/99417740/6dfa5d47-ffdf-4924-86de-df528b12808b" alt="Image" width="400" height="400">
-</p>
+To understand the overall landscape of business ratings on Yelp, we first visualize the distribution of star ratings (1.0 to 5.0) across all businesses. This helps us detect bias, platform inflation, and typical sentiment skew.
 
-We can analyze the number and distribution of businesses in different cities or regions, and understand which types of businesses are most popular and which areas have more businesses. This can help the platform and businesses understand market demand and competition. For example, we can analyze the business category and location information in the Yelp Business dataset, and determine the most popular business types and the most popular business districts in a city or region.
+Using the `stars` field in `yelp_business.csv`, we calculate frequency and proportion of each rating level, and render a bar chart with annotated counts.
 
-### User Reviews and Preferences
+<div align="center"><img src="https://drive.google.com/thumbnail?id=16cHRzuvIc9ISnveizHdv7ylou8n4r29W&sz=s4000" width="800"><br><sub>Distribution of Yelp business ratings (1.0–5.0)</sub></div>
 
-![image](https://github.com/datoujinggzj/DS_Project_Portfolio/assets/99417740/88c8aefd-108f-43f5-9183-73475534fa1d)
+**Insights**
 
+- The distribution is **center-skewed**, peaking between 3.5 and 4.5 stars.
+- A **notable proportion (~15%)** of businesses received perfect 5.0 ratings, which may reflect early-stage reviews or sampling bias.
+- Low-rated businesses (1.0 to 2.0) are underrepresented, possibly due to Yelp's moderation policy or survivorship bias (closed businesses).
 
-We can analyze user ratings and reviews of businesses on the Yelp platform, and understand information such as user preferences for business types, service quality, and food taste, which can help businesses better optimize their products and services. For example, we can analyze a business's food taste, service quality, and user feedback through the user reviews and ratings data in the Yelp Review dataset, and help businesses improve or optimize their products and services.
+**Implication**
 
-### Business Operations and Revenue
+This non-uniform distribution suggests that downstream models (e.g., for rating prediction or fraud detection) must account for this skew, rather than assuming normality or uniform class balance.
 
-We can analyze a business's operating conditions and revenue situation, including information such as the business's business hours, customer flow, revenue, and expenses, which can help businesses better formulate operating strategies and increase revenue. For example, we can analyze the distribution of business traffic and operating hours through the check-in and business information data in the Yelp Checkin and Business datasets, and help businesses better arrange work hours and human resources.
+### <big><strong>1.2 Top Business Categories</strong></big>
 
-### User Behaviors and Trends
+To identify the dominant business types on Yelp and understand the service landscape users interact with, we analyze the frequency of business categories.
 
-We can analyze user behavior and trends on the platform, including user reviews of businesses, check-ins, favorites, and likes, which can help businesses better understand user needs and behavior habits. For example, we can analyze user suggestions and preferences for businesses through the user comments and likes data in the Yelp Tip and Review datasets, and help businesses improve or optimize their products and services.
+Each business on Yelp can belong to multiple categories (e.g., "Restaurants; Bars; Nightlife"). We split the `categories` field and compute the most common tags across all businesses.
 
-### Market Competition and Trends
+<div align="center"><img src="https://drive.google.com/thumbnail?id=1LJQATHCrUnc3gZhN4VNMEJ-QslJMuDH9&sz=s4000" width="800"><br><sub>Top 20 most common business categories on Yelp</sub></div>
 
-We can analyze market competition and trends, including information such as the number of businesses, reviews, market share, and trends in different cities. This can help businesses and the platform better understand market development trends and opportunities. For example, we can analyze the number of businesses and review situation in a city or region through the business and review data in the Yelp Business and Review datasets, understand the level of market competition and development trends, and help businesses and the platform better formulate development strategies.
+**Insights**
 
-### Sentiment Analysis
+- **Restaurants**, **Shopping**, and **Food** top the list, jointly accounting for over **60%** of all business tags.
+- Service industries like **Beauty & Spas**, **Health & Medical**, and **Home Services** form the second tier.
+- Nightlife-related categories (Bars, Clubs) are present but not dominant in volume, indicating Yelp’s primary focus on daily services over leisure sectors.
 
-![image](https://github.com/datoujinggzj/DS_Project_Portfolio/assets/99417740/019929ee-4d06-48c3-bd91-05261aa4116b)
+**Implication**
 
+This distribution shapes the nature of user reviews, with most NLP sentiment patterns likely stemming from food and shopping experiences. It also explains why review density and emotional intensity tend to be high in these verticals.
 
-It involves using natural language processing techniques to analyze the opinions and emotions expressed in user reviews and ratings. By doing so, we can identify patterns and trends in user sentiment towards different businesses and their products or services, and help businesses improve their products or services to meet customer expectations.
+### <big><strong>1.3 Geographic Analysis</strong></big>
 
-For example, we can use sentiment analysis to identify common issues or complaints mentioned in user reviews, such as long wait times, poor customer service, or low quality food. Businesses can then use this information to address these issues and improve their overall customer satisfaction. The platform itself can also benefit from sentiment analysis by identifying trends in user satisfaction and dissatisfaction across different categories of businesses, and use this information to improve the platform's features and services.
+#### <big><strong>1.3.1 Global and Regional Distribution</strong></big>
 
-In addition, sentiment analysis can also be used to predict future user behavior and preferences, which can help businesses and the platform stay ahead of market trends and respond proactively to changing customer needs.
+To understand where Yelp activity is geographically concentrated, we map the locations of all businesses by latitude and longitude. This helps identify major markets and supports further regional or city-level segmentation.
 
-### Network & Community Detection
+Using `latitude` and `longitude` from `yelp_business.csv`, we plotted all business locations on a global projection using Cartopy. We then zoomed in on high-density zones in **North America** and **Europe** for more granular visualization.
 
-<p align="center">
-  <img src="https://github.com/datoujinggzj/DS_Project_Portfolio/assets/99417740/1e0f9c49-286c-49c0-ba40-b460b5b719a4" alt="Image" width="400" height="400">
-</p>
+<div align="center"><img src="https://drive.google.com/thumbnail?id=1MCROYKAmi0JHXq33IlPa1kD1sOBduZSs&sz=s4000" width="600"><br><sub>Global distribution of Yelp businesses</sub></div> 
 
-It involves using network analysis techniques to identify groups of businesses or users that are closely related to each other based on their interactions on the platform. By doing so, we can identify communities of businesses or users that share similar interests, preferences, or behaviors, and use this information to better understand the dynamics of the Yelp platform.
+<div align="center"><img src="https://drive.google.com/thumbnail?id=1yV0rAfZRs2smG5mLHuLd6g4T9lJRctq9&sz=s4000" width="800"><br><sub>Zoomed-in view: North America</sub></div> 
 
-For example, we can use community detection to identify groups of businesses that are competing with each other in the same market segment or location. By analyzing the interactions and relationships between these businesses, we can better understand their competitive landscape and help them develop more effective marketing strategies.
+<div align="center"><img src="https://drive.google.com/thumbnail?id=1BQZrfR1mjLQj-Fwose9vk0utEGEcxiRK&sz=s4000" width="800"><br><sub>Zoomed-in view: Europe</sub></div>
 
-Similarly, we can use community detection to identify groups of users that are interacting with each other on the platform, such as users who frequently review or recommend the same types of businesses. By analyzing these user communities, we can better understand their preferences and behaviors, and use this information to improve the platform's recommendation algorithms and personalized services.
+**Insights**
 
-Overall, community detection is a powerful tool for understanding the complex network of relationships between businesses and users on the Yelp platform, and can help businesses and the platform better understand their customers and improve their services.
+- **North America dominates** the business distribution, with dense clusters in cities like Las Vegas, Phoenix, and Toronto.
+- **European cities**, though present, show lower density and coverage, likely reflecting limited market penetration.
+- Business geographies appear **strongly urban-centric**, suggesting Yelp is most active in metropolitan consumer zones.
 
-## Challenges & Pain Points
+**Implication**
 
-### Data volume and complexity
+This geographic context helps prioritize downstream analyses (e.g., sentiment, check-in volume) by region. It also guides which cities to highlight in heatmaps, community networks, and elite behavior studies. 
 
-The Yelp dataset contains millions of rows of data, which can make it challenging to extract meaningful insights and patterns. One solution to this challenge is to use sampling techniques to reduce the size of the dataset while still maintaining the integrity of the analysis. For example, a data analyst may choose to focus on a subset of businesses or reviews that are most relevant to the research question at hand. However, the drawback of this solution is that it may overlook important patterns and trends that are only visible in the full dataset.
+#### <big><strong>1.3.2 City-Level Density Maps</strong></big>
 
-### Data quality
+To explore intra-city business clustering and urban layout patterns, we zoom into four cities—**Las Vegas**, **Phoenix**, **Stuttgart**, and **Edinburgh**—and visualize business density using scatter plots on geographic maps.
 
-The Yelp dataset is user-generated, which means that the quality of the data can vary widely. One solution to this challenge is to use data cleaning and preprocessing techniques to ensure that the data is accurate and reliable. For example, a data analyst may remove duplicates, correct misspellings, and standardize formats to ensure consistency. However, the drawback of this solution is that it can be time-consuming and may require manual intervention to correct errors that cannot be easily automated.
+<div align="center"><img src="https://drive.google.com/thumbnail?id=1JWyWxDyKDZInXjaLlUkUwA58SlMHbuws&sz=s4000" width="800"><br></div> 
 
-### Bias
+We isolate each city using bounding boxes based on latitude/longitude, then plot all businesses with varying point density on dark background maps for visual clarity.
 
-The Yelp dataset may be subject to bias and manipulation, which can make it difficult to draw accurate conclusions. One solution to this challenge is to use statistical techniques to account for bias and adjust for confounding variables. For example, a data analyst may use regression analysis to control for factors that may be influencing the outcome of interest, such as the number of reviews or the location of the business. However, the drawback of this solution is that it may not fully account for all sources of bias, and may require extensive data exploration to identify and address potential confounders.
+<div align="center"><img src="https://drive.google.com/thumbnail?id=1ggAIBQbMeR8Sl7D-DJp2n6-kX-mEa-kj&sz=s4000" width="800"><br></div> 
 
-### Interpretation and communication
+<div align="center"><img src="https://drive.google.com/thumbnail?id=1z2FTyqTc8sDndmz9ht1g8J2OgK-d6vre&sz=s4000" width="800"><br><sub>Business density map</sub></div> 
 
-Before performing data analysis, a comprehensive understanding of Yelp's platform and the restaurant industry is required to better understand the data and develop appropriate analysis plans. For example, understanding user and merchant behavior and feedback on Yelp's platform, as well as the characteristics and business models of different types of restaurants, is necessary to perform an insightful analysis.
+**Insights**
 
-Data analysis is only valuable if the results are interpreted correctly and communicated effectively to stakeholders. One solution to this challenge is to use data visualization and storytelling techniques to convey the key insights and findings in a compelling and accessible way. For example, a data analyst may use interactive charts and graphs to highlight key trends and patterns, or use narrative techniques to explain the significance of the results in plain language. However, the drawback of this solution is that it may require specialized skills and expertise in data visualization and communication, which may not be available to all data analysts.
+- **Las Vegas** and **Phoenix** exhibit **grid-like clustering**, typical of U.S. cities with planned urban layouts.
+- **Stuttgart** and **Edinburgh** show **less regular patterns**, consistent with older European city structures and walkability.
+- Yelp business distribution correlates strongly with commercial districts and downtown cores.
 
-## Gain
+**Implication**
+ These maps help us understand Yelp’s footprint in different urban contexts and support further spatial analysis such as:
 
-### Data Analysis Skills
-Through the Yelp data analysis project, I gained hands-on experience in cleaning, transforming, and analyzing large-scale datasets. This included handling tasks like data type conversion, managing missing values, detecting and removing outliers, standardizing data, and performing group aggregations. Additionally, I applied various modeling and analytical methods such as regression, classification, clustering, and time-series analysis to extract meaningful insights tailored to the project's goals.
+- Mapping elite user activity zones
+- Connecting check-in patterns with service areas
+- Identifying underserved regions for potential expansion
 
-### Business Analysis Skills
-The project allowed me to analyze data from multiple perspectives, including the platform, users, and merchants, to better understand Yelp’s operational dynamics. For instance, I examined user reviews to identify trends in restaurant popularity and analyzed merchant feedback to assess satisfaction levels, providing actionable insights to enhance platform services.
+#### <big><strong>1.3.3 Heatmap by Star Rating (Folium Animation)</strong></big>
 
-### Programming Skills
-I utilized programming languages like Python, SQL, and R to process and analyze data. Python was instrumental in writing scripts for data cleaning and advanced analysis, while SQL facilitated data querying and aggregation. For statistical analysis and visualization, I relied on R to present findings effectively.
+To assess whether high-rated and low-rated businesses cluster spatially, we use a **temporal heatmap** to visualize business locations in Las Vegas by star rating tiers.
 
-### Visualization Skills
-To communicate results to non-technical stakeholders, I developed strong data visualization skills. Using tools like Tableau and Power BI, I created compelling visualizations, including bar charts, scatterplots, line charts, and heatmaps, to effectively convey insights from the analysis.
+We group Las Vegas businesses by their `stars` rating (1.0 to 5.0), extract their latitude and longitude, and create a time-lapse heatmap using `folium.plugins.HeatMapWithTime`.
 
-### Teamwork Skills
-Collaboration was a key part of the project. I worked closely with team members to define objectives, design analysis plans, and align workflows. This involved brainstorming research questions, coordinating data preparation, and collaboratively interpreting findings to ensure the project's success.
+<div align="center"><img src="https://drive.google.com/thumbnail?id=1b_u8oC2IypRUxdQHlIJc0LwML87dLJAo&sz=s4000" width="800"><br><sub>Animated heatmap of business ratings by location (Las Vegas)</sub></div>
+
+**Insights**
+
+- **High-rated and low-rated businesses are spatially mixed**, with no clear evidence of rating-based clustering.
+- Central Las Vegas shows **dense mixed ratings**, possibly reflecting tourist traffic and business volatility.
+- Outer areas are sparser but not necessarily lower-rated, suggesting **rating is not location-driven**.
+
+**Implication**
+
+This challenges common assumptions that “bad areas = bad ratings.” Instead, review scores seem to be shaped more by **service quality or customer expectation** than pure geography.
+
+The animation format also provides an intuitive tool for **internal review**, e.g., city managers or category managers monitoring business health across time or quality segments.
+
+### <big><strong>1.4 User Behavior Analysis</strong></big>
+
+#### <big><strong>1.4.1 Review Volume Distribution</strong></big>
+
+To evaluate community engagement and the structure of Yelp’s user base, we analyze the distribution of review counts per user. This reveals whether content contribution is evenly distributed or concentrated among a few power users.
+
+Using the `yelp_review.csv` and `yelp_user.csv`, we group reviews by `user_id`, calculate review counts, and visualize the results with:
+
+- A **KDE plot** showing review count distribution;
+- A **cumulative distribution plot** to understand what percent of users write how many reviews.
+
+<div align="center"><img src="https://drive.google.com/thumbnail?id=1SkI38tGdKtqZ288BP9e01FqQPJBhOyfi&sz=s4000" width="800"><br><sub>Distribution of number of reviews per user (capped at 30)<br>Cumulative distribution of user review volume</sub> </div>
+
+**Insights**
+
+- The distribution is **extremely long-tailed**: over **80% of users post fewer than 3 reviews**.
+- A small set of users are highly prolific, suggesting a potential for elite promotion or influencer leverage.
+- The community is highly **contributor-imbalanced**, typical of UGC platforms.
+
+**Implication**
+
+This long-tail structure reinforces the value of elite programs and reviewer incentives. Activating the "silent middle" (users who posted once or twice) may yield stronger platform engagement than focusing solely on either end of the spectrum.
+
+We explore this further by profiling top reviewers in the next section.
+
+#### <big><strong>1.4.2 Top Reviewers & Behavior Profiling</strong></big>
+
+To understand the traits of Yelp’s most active contributors, we analyze the top reviewers by volume and explore their review behavior across time and geography.
+
+We extract the top users by `review_count` from `yelp_review.csv`, then merge with `yelp_user.csv` and `yelp_business.csv` to trace their check-in locations. Using `folium.plugins.HeatMapWithTime`, we animate each user’s review trail by date.
+
+<div align="center"><img src="https://drive.google.com/thumbnail?id=1L-H2wgX7n9zz_4dE6OGHvBBiBC6wLOMw&sz=s4000" width="800"><br><sub>Heatmap animation of top user's review locations across time</sub></div>
+
+**Insights**
+
+- The top reviewer (70+ reviews in our sample) is geographically concentrated in **Toronto suburbs**, suggesting localized lifestyle or neighborhood influence.
+- This user’s reviews span over 8 years, indicating long-term platform loyalty.
+- High-activity users generate significantly more reactions (useful, funny, cool), reinforcing their role as **signal amplifiers** within the community.
+
+**Implication**
+
+Understanding the location and time span of power users enables better **targeting for elite onboarding, local events, or reviewer campaigns**. These users often anchor local credibility and can influence nearby business reputation.
+
+
+
+## <big><strong>2. Review Analysis</strong></big>
+
+### <big><strong>2.1 Usefulness and Rating</strong></big>
+
+To explore whether **“useful” votes** serve as a proxy for review quality or reliability, we analyze how rating, review length, and volume change as the threshold for `useful` votes increases.
+
+We filter reviews with `useful > 0` and group them by thresholds from 100 to 1000. For each subset, we compute:
+
+- Maximum star rating
+- Average star rating
+- Average review length
+- Number of qualifying reviews
+
+Each is plotted as a line chart using `sns.regplot`. These are plotted to show how increasing the useful vote threshold relates to review quality and sentiment.
+
+<div align="center"><img src="https://drive.google.com/thumbnail?id=1MvOulJ7gmhADCi8kXe2Xgqvj5mzDNJTF&sz=s4000" width="800"><br><sub>Trend of max/avg rating, review length, and review count vs. useful threshold</sub></div>
+
+**Insights**
+
+- Both **maximum and average star ratings decline** as the `useful` vote threshold increases.
+   → Highly upvoted reviews tend to be **low-rating**, likely highlighting critical issues or negative experiences.
+- **Review length increases linearly** with `useful` votes, suggesting detailed reviews are perceived as more helpful.
+- **The number of such reviews declines sharply**, showing high-usefulness reviews are rare and not mass-produced.
+
+**Implication**
+
+Contrary to popular belief, it’s **negative, detailed, and rare** reviews that earn the most "useful" votes—not positive feedback.
+ This has two implications:
+
+- Platforms should **prioritize these reviews** in ranking/surfacing to protect consumers and surface risk.
+- Businesses should **pay attention to long-form, low-rating reviews**, as they carry disproportionate influence.
+
+------
+
+### <big><strong>2.2 Sentiment Distribution: Elite vs. Regular Users</strong></big>
+
+To assess whether Yelp’s elite users express opinions differently than regular users, we apply sentiment analysis to their review texts and compare the distribution of polarity scores.
+
+Using `TextBlob`, we compute sentiment polarity for each review written, split by elite vs. regular users (based on the `elite` field in `yelp_user.csv`). The polarity score ranges from **−1 (very negative)** to **+1 (very positive)**.
+
+<div align="center"><img src="https://drive.google.com/thumbnail?id=1GRB1ZGp9eKXwe_DH4Z1KMgUgct1dZd2u&sz=s4000" width="800"><br><sub>Sentiment score distribution of reviews in 2012 by elite vs. regular users</sub></div>
+
+**Insights**
+
+- Both groups skew slightly positive, but **elite users have a tighter, more centered distribution**.
+- Regular users show a wider spread of sentiment, including more extreme polarity scores on both ends.
+- Elite reviews tend to be **more moderate and consistent**, possibly due to community norms or editorial standards.
+
+**Implication**
+
+Yelp’s elite users serve as **emotionally calibrated content anchors**, providing balanced perspectives that the platform can prioritize or weight more heavily in decision-making (e.g., for rating calculation or fraud detection).
+ This also reinforces the importance of **elite recruiting** and **content quality standards**.
+
+In the next section, we further explore **extreme sentiment outliers** and generate word clouds for interpretability.
+
+------
+
+### <big><strong>2.3 Word Clouds of Extremes</strong></big>
+
+To interpret what drives extreme positive or negative sentiment in reviews, we extract reviews with **very high or very low polarity** and visualize common keywords using word clouds.
+
+Using `TextBlob` polarity scores, we define:
+
+- **Positive reviews**: polarity > 0.25
+- **Negative reviews**: polarity < −0.5
+
+We sample ~2,000 reviews and generate separate word clouds for each polarity segment. Common non-informative words (`place`, `service`, `food`) are excluded to enhance signal.
+
+<div align="center"><img src="https://drive.google.com/thumbnail?id=1qI_9PFE-LcBi5cqNtIC8-_rVpGTyLStN&sz=s4000" width="800"><br><sub>Word cloud of reviews</sub></div>
+
+**Insights**
+
+- Negative clouds surface pain points like `"rude"`, `"never"`, `"horrible"`, `"cashier"`—highlighting service breakdowns and poor experience.
+- Positive clouds emphasize `"great"`, `"amazing"`, `"delicious"`, `"love"`—highlighting staff and food quality.
+- Neutral words like `"car"`, `"said"` appearing in the negative cloud may indicate **hidden structural issues** (e.g. parking complaints, staff disputes).
+
+**Implication**
+
+This method supports **root cause analysis** for low ratings and informs **business strategy** (e.g., service training, queue management).
+ It also provides platforms with a lightweight way to **monitor complaints** and detect emergent issues **without training heavy NLP models**.
+
+------
+
+
+
+## <big><strong>3. Social Network Analysis</strong></big>
+
+### <big><strong>3.1 Network Construction</strong></big>
+
+To explore Yelp’s social layer, we construct a user friendship graph based on the `friends` field in `yelp_user.csv`. The goal is to uncover **user clusters**, **network sparsity**, and potential influencer structures.
+
+We transform each `user_id` and their comma-separated `friends` list into edge pairs and build an undirected graph using `NetworkX`.
+ We first construct a global sample (~6,000 users) and visualize the network layout using the `spring_layout` algorithm.
+
+<div align="center"><img src="https://drive.google.com/thumbnail?id=1PhjraSLe1tW5Z-5yrrtFjuGkS3EZniX1&sz=s4000" width="500"><br><sub>Sampled Yelp user friendship network (Spring layout)</sub></div>
+
+**Insights**
+
+- The global network is **extremely sparse**: many users are **isolated or have ≤1 connection**.
+- Some central nodes act as **hubs**, likely elite or socially active users.
+- Yelp’s user graph is not deeply connected—interactions may be **driven more by reviews than by social ties**.
+
+**Implication**
+
+While the Yelp friend system exists, it plays a **limited role** in interaction and discovery. This insight is important when considering **collaborative filtering algorithms** or **social-based recommendations**, which may not be effective without stronger graph connectivity.
+
+To explore real communities, we zoom into a specific region in the next section.
+
+### <big><strong>3.2 Stuttgart Subgraph + Community Detection</strong></big>
+
+To observe meaningful user communities in a real region, we extract the user network for **Stuttgart**, Germany, and apply community detection to uncover **local clusters and influence structures**.
+
+We filter users who have reviewed Stuttgart-based businesses and construct their friend network.
+ Using `NetworkX`, we:
+
+- Build the subgraph
+- Apply **degree centrality** to identify key users
+- Use **Louvain algorithm** for community detection
+- Visualize communities via `spring_layout`, `circular_layout`, and `kamada_kawai_layout`
+
+<div align="center"><img src="https://drive.google.com/thumbnail?id=1PMqGoAHXXUM3W5hraY-pcrs1o7PQFZVh&sz=s4000" width="500"><br><sub>Stuttgart user network - Spring layout with Louvain communities</sub></div> 
+
+**Insights**
+
+- The Stuttgart subgraph is **denser and more meaningful** than the global network, with identifiable clusters.
+- Louvain detected **5 major communities**, likely reflecting real-world social groups or shared interest zones.
+- Key influencer nodes can be identified using degree centrality, which could help **promote content or local campaigns**.
+
+**Implication**
+
+Region-specific network analysis reveals **micro-community structure** not visible in global views.
+ For recommendation systems or marketing, this suggests a **localized approach to social features**—e.g., promoting elite content within clusters or using community-aware ranking.
+
+
+
+## <big><strong>4. Strategic Takeaways</strong></big>
+
+This project uncovers key behavioral and structural patterns from Yelp’s review ecosystem, offering valuable insights for platform operators, data scientists, and business strategists.
+
+------
+
+### <big><strong>4.1 Platform-Level Recommendations</strong></big>
+
+- **Surface rare but high-impact reviews**
+   → Reviews with low ratings and high `useful` scores often carry essential service critiques. Prioritize them in dashboards and feeds.
+- **Prioritize elite user onboarding & retention**
+   → Elite users write more balanced, high-quality reviews and influence community tone. Track their sentiment profiles and promote them in local clusters.
+- **Leverage review time patterns for engagement**
+   → Most user activity clusters around late afternoons and weekends. Schedule nudges, reward prompts, or ad delivery in those windows.
+
+------
+
+### <big><strong>4.2 Business-Oriented Strategies</strong></big>
+
+- **Monitor NLP sentiment trends for risk signals**
+   → Extreme negative sentiment often co-occurs with `useful` tags. Alert business accounts when sentiment drops below thresholds.
+- **Optimize staffing and open hours with check-in curves**
+   → Weekday vs. weekend demand patterns differ significantly. Help merchants match resource allocation with user flow.
+- **Use location-based clusters for regional strategy**
+   → Cities like Las Vegas and Stuttgart show distinct behavioral geography. Offer customized toolkits by metro area.
+
+------
+
+### <big><strong>4.3 Data Product Implications</strong></big>
+
+- **Avoid over-relying on friend networks for recommendation**
+   → The global user graph is sparse. Social-based CF may not work unless constrained to local subgraphs or elite nodes.
+- **Use sentiment + interaction signals for fraud/risk modeling**
+   → Rather than binary fraud detection, define review “risk tiers” based on polarity, outlier behavior, and textual features.
+- **Establish useful-vote-based quality metrics**
+   → Internal QA systems can incorporate `useful` density as a proxy for informative review rate across regions or categories.
