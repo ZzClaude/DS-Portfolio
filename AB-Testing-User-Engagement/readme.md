@@ -276,7 +276,7 @@ While hypothesis testing provides p-values and binary decision-making, it often 
 In addition, we computed the **probability that gate_40 performs worse than gate_30**:
 
 ```python
-P(retention_1_diff < 0) = 96.6%
+P(retention_1_diff < 0) = 96.60%
 P(retention_7_diff < 0) = 99.98%
 ```
 
