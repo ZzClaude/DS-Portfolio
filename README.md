@@ -1,85 +1,110 @@
-# **Claude's Portfolio: Data Science and Analytics Journey**
+# <big><strong>🔍 Claude's Data Science Portfolio</strong></big>
 
-Welcome to my Data Science portfolio! This repository showcases five projects I’ve worked on, covering a range of topics including natural language processing (NLP), recommendation systems, A/B testing, customer segmentation, and time-series forecasting. Each project is structured to demonstrate my skills in **data analysis**, **machine learning**, **SQL**, and **visualization**.
+Welcome! I'm Claude, a data scientist with a business lens. 
 
-- **Empowering User Experience**: Optimizing product recommendations through A/B testing and UI enhancements.  
-- **Unveiling Business Insights**: A comprehensive data analysis of Yelp reviews to refine star ratings and improve user retention.  
-- **Customer Segmentation for IPO Success**: Identifying high-value segments using advanced clustering techniques, driving loyalty and repeat purchases.  
-- **Revolutionizing Financial Forecasts**: Optimizing procurement and sales cycles with advanced time-series forecasting models.
-- **News Intelligence**: Unleashing the potential of user history to enhance click prediction accuracy through deep learning and recommendation systems.  
+It's a curated selection of end-to-end projects that span machine learning, behavioral modeling, A/B testing, forecasting, and recommendation systems. Each project reflects my focus on building **interpretable, business-driven solutions** through deep data exploration and thoughtful modeling.
 
-| Project Detail | Data Link |
-|:---------------:|:---------:|
-| [AB Testing](https://github.com/ZzClaude/DS-Portfolio/blob/main/AB-Testing-User-Engagement/readme.md) | [Link](https://drive.google.com/drive/folders/1C8HnbdoFgt83fhCzPXYCp938QK_uKAv0?usp=drive_link) |
-| [NLP Yelp Analysis](https://github.com/ZzClaude/DS-Portfolio/blob/main/NLP-Yelp-Analysis/readme.md) | [Link](https://drive.google.com/drive/folders/1YL5eo2ko3elyS5r0fC879d74XDuvJV40?usp=drive_link) |
-| [Customer Clustering](https://github.com/ZzClaude/DS-Portfolio/blob/main/Customer-Clustering/readme.md) | [Link](https://drive.google.com/drive/folders/1U5BdXPyVNrz6sj4dK6-ZIvIhofZrK2Ms?usp=drive_link) |
-| [Time Series Forecasting](https://github.com/ZzClaude/DS-Portfolio/blob/main/Time-Series-Forecasting/readme.md) | **Data not available due to confidentiality** |
-| [Recommendation System](https://github.com/ZzClaude/DS-Portfolio/blob/main/Recommendation-System/readme.md) | [Link](https://drive.google.com/drive/folders/1Zkwe0_W8h86adkzXer42t2e-3nPvuuQU?usp=drive_link) |
+- 💼 **Business Use Cases**: Customer value modeling, product iteration, growth forecasting  
+- 🧠 **Machine Learning**: Classification, regression, unsupervised clustering  
+- ✨ **End-to-End Analysis**: From data preprocessing and feature engineering to insight generation  
+- 📈 **Visualization & Communication**: Clear storytelling for stakeholders
 
 ---
 
-## **Projects Overview**
-
-### 1. **A/B Testing for User Engagement Optimization**
-- **Description**: Analyzed A/B test results for a mobile gaming app to assess the impact of in-game level adjustments on retention and purchases.
-- **Skills**: Hypothesis Testing, Statistical Analysis, Experimental Design.
-- **Libraries Used**: 
-  - Statistical Analysis: `Scipy`, `Statsmodels`.
-  - Visualization: `Matplotlib`, `Seaborn`.
-- **Key Results**: Increased in-app purchase conversion by 10% and user retention by 5%.
+| Project                                                      | Topic                                  | Skills & Tools                                               | Data Link                                                    |
+| ------------------------------------------------------------ | -------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| [Full-Stack LTV Modeling for SaaS](https://github.com/ZzClaude/DS-Portfolio/blob/main/Full-Stack-LTV-Pipeline/readme.md) | B2B Lifetime Value, Retention & Growth | Feature engineering, clustering, XGBoost, rule-based modeling | [Link](https://drive.google.com/drive/folders/1U5BdXPyVNrz6sj4dK6-ZIvIhofZrK2Ms?usp=drive_link) |
+| [Game Design Experiment](https://github.com/ZzClaude/DS-Portfolio/blob/main/AB-Testing-User-Engagement/readme.md) | A/B Testing, Retention, Engagement     | Hypothesis testing, bootstrap, visualization                 | [Link](https://drive.google.com/drive/folders/1C8HnbdoFgt83fhCzPXYCp938QK_uKAv0?usp=drive_link) |
+| [Cash Flow Forecast](https://github.com/ZzClaude/DS-Portfolio/blob/main/Time-Series-Forecasting/readme.md) | Time Series, Purchase/Redemption       | Time features, anomaly detection, seasonal patterns          | [Link](https://drive.google.com/drive/folders/1W9GH6-MUSChpsbXFIKSXnK5KmKkWIVhb?usp=drive_link) |
+| [UGC Analysis w/ NLP](https://github.com/ZzClaude/DS-Portfolio/blob/main/NLP-Yelp-Analysis/readme.md) | NLP, Social Graph, Geospatial          | TextBlob, NetworkX, Folium                                   | [Link](https://drive.google.com/drive/folders/1YL5eo2ko3elyS5r0fC879d74XDuvJV40?usp=drive_link) |
+| [Recommender System](https://github.com/ZzClaude/DS-Portfolio/blob/main/Recommendation-System/readme.md) | Recommendation System, Click Behavior  | ItemCF/UserCF, CTR modeling, ranking, Faiss                  | [Link](https://drive.google.com/drive/folders/1Zkwe0_W8h86adkzXer42t2e-3nPvuuQU?usp=drive_link) |
 
 ---
 
-### 2. **NLP-Driven Insights from Yelp Review Data**
-- **Description**: Conducted sentiment analysis on 5.26M Yelp reviews to refine business star ratings and uncover trends affecting elite user retention.
-- **Skills**: Sentiment Analysis, Text Mining, Data Visualization, Geographic Mapping, Graph Networks.
-- **Libraries Used**: 
-  - Sentiment Analysis: `TextBlob`, `Textatistic`, `Afinn`.
-  - Visualization: `Matplotlib`, `Seaborn`, `Plotly`, `Folium`, `Basemap`.
-  - Graph Analysis: `NetworkX`, `Heapq`.
-- **Key Results**: Improved rating precision by 17% and increased elite user retention by 12%.
+## <big><strong>📬 Let's Connect</strong></big>
+
+If you're a recruiter, teammate, or fellow data enthusiast, feel free to explore these projects and reach out if you'd like to collaborate or chat about any of these ideas!.  
+
+I’m passionate about solving real-world problems through thoughtful analysis and scalable models.
+
+👉 [Connect with me on LinkedIn](https://www.linkedin.com/in/claude-zz-wang/)
 
 ---
 
-### 3. **Customer Segmentation for IPO Readiness**
-- **Description**: Applied RFM analysis and clustering techniques (K-Means, DBSCAN) to segment 540K+ customers for an IPO client.
-- **Skills**: Clustering, RFM Analysis, Optimization of Clustering Algorithms.
-- **Libraries Used**: 
-  - Clustering: `KMeans`, `DBSCAN`, `Silhouette Score`.
-  - Optimization Techniques: `K-medoids`, `Canopy Algorithm`, `FCM`.
-- **Key Results**: Improved repeat purchase rates from 31% to 42% and enhanced investor confidence.
+## <big><strong>🛠️ Tools & Techniques</strong></big>
+
+`Python` `SQL` `XGBoost` `LightGBM` `EDA` `K-Means` `Logistic Regression`  
+`Hypothesis Testing` `NLP` `Time Series Forecasting` `CTR Modeling` `Network Analysis`  
+`Folium` `Seaborn` `Matplotlib` `Pandas` `Scikit-Learn`
 
 ---
 
-### 4. **Time-Series Forecasting for Cash Flow Management**
-- **Description**: Developed time-series forecasting models to predict procurement and sales cycles, optimizing short-term cash flow.
-- **Skills**: Time-Series Forecasting, Model Interpretation, Statistical Analysis.
-- **Libraries Used**: 
-  - Forecasting: `Prophet`, `XGBoost`, `RandomForest`, `Lasso`, `Ridge`, `BayesianRidge`.
-  - Statistical Analysis: `Scipy`, `Statsmodels`, `Shap`.
-- **Key Results**: Improved forecasting accuracy by 15% and reduced capital needs by 10%.
+## <big><strong>📁 Project Highlights</strong></big>
+
+### 📊 Behavior-Driven LTV Modeling for B2B SaaS
+
+> *Built a forward-looking Customer Lifetime Value model for Paylocity based on billing, retention, and product adoption signals.*
+
+- Designed a closed-form DCF model with **personalized retention** and growth rates derived from **XGBoost** and business rules.
+- **Engineered behavior features** from billing data to model upsell, cross-sell, and tenure with **strong interpretability**.
+- Segmented clients using **k-means++** clustering to support sales planning and customer success prioritization.
+- Conducted **sensitivity analysis** and calculated segment-level LTV/CAC ratios for **ROI optimization**.
+- Delivered insights directly integrated into Salesforce for **client scoring** and resource allocation.
+
+📂 [Read More](https://github.com/ZzClaude/DS-Portfolio/blob/main/Full-Stack-LTV-Pipeline/readme.md)
 
 ---
 
-### 5. **Recommendation System for News App**
+### <big><strong>🧪 A/B Testing in Mobile Game Design</strong></big>
 
-**Description**:    
- 
- Built a recommendation pipeline for 200K+ users based on clickstream data and article metadata. Combined multiple recall channels — including item-based collaborative filtering and embedding similarity (via Faiss) — to generate diverse candidate sets.
- Applied a rule-based fusion mechanism to integrate recall results, with future work planned for LGB Ranker and DIN-based ranking.
+> *Evaluated user retention and engagement impact of gate relocation in a puzzle game via controlled A/B testing.*
 
-**Skills**:   
+- Ran hypothesis tests (t-test, z-test, bootstrap) on gameplay and retention across 90,000+ players.
+- Identified a 5% drop in Day-7 retention after gate delay, advising against rollout despite positive Day-1 metrics.
+- Designed AA test to validate randomization and eliminate selection bias.
+- Visualized skewed engagement distribution and used statistical correction for outliers.
+- Supported product decision-making through rigorous, interpretable experiment results.
 
-Multi-channel Recall, User Behavior Modeling, Embedding Similarity Search, Ranking Pipeline Design.
-
-**Libraries Used**:
-
-- Recall & Retrieval: `Pandas`, `Faiss`, `Scikit-learn`, `NetworkX`.
-- Embedding & Similarity: `Word2Vec` (document-level), `Faiss`.
-- Ranking Framework: `LightGBM`, `DIN` (future integration).
-
-**Key Results**:    
- 
- Achieved ~20% improvement in top-K hit rate over baseline through score fusion across recall channels; ensured robust coverage for cold-start users.
+📂 [Read More](./AB-Game-Retention)
 
 ---
+
+### <big><strong>📉 Forecasting Purchase & Redemption for Cash Flow Management</strong></big>
+
+> *Built forecasting models for financial inflows and outflows in a money-market fund system using time series signals.*
+
+- Analyzed cyclical, holiday, and anomaly patterns from 2.8M+ transaction logs.
+- Engineered time-aware features and implemented multivariate models including XGBoost and Prophet.
+- Tuned forecasting to handle asymmetric penalty metrics based on prediction confidence.
+- Enabled more stable fund allocation planning and optimized redemption risk control.
+- Enhanced prediction accuracy over baseline by 15% in a real-world business simulation.
+
+📂 [Read More](https://github.com/ZzClaude/DS-Portfolio/blob/main/Time-Series-Forecasting/readme.md)
+
+---
+
+### <big><strong>🗺️ NLP & Network Analysis on Yelp UGC</strong></big>
+
+> *Explored review sentiment, elite user influence, and geospatial trends across Yelp businesses and users.*
+
+- Applied sentiment analysis on 1M+ reviews to adjust business star ratings, revealing rating inflation.
+- Built elite user subnetwork using NetworkX to identify community clusters and influence hubs.
+- Mapped business categories and check-in behavior via geospatial visualizations (Folium, Cartopy).
+- Investigated “useful/funny/cool” reactions as proxies for credibility and social signals.
+- Delivered multi-sided insights for platform governance, business marketing, and user experience design.
+
+📂 [Read More](https://github.com/ZzClaude/DS-Portfolio/blob/main/NLP-Yelp-Analysis/readme.md)
+
+---
+
+### <big><strong>📰 News Recommender System with Click Prediction</strong></big>
+
+> *Predicted user-article CTR through recall-ranking framework and rich user behavior features.*
+
+- Reformulated click logs into CTR classification task and engineered session-based features.
+- Implemented recall via ItemCF and UserCF; ranked using LightGBM with custom features.
+- Addressed cold start via embedding similarity and re-click patterns.
+- Evaluated with position-decayed hit score, optimizing for top-5 ranking accuracy.
+- Achieved over 20% uplift in predicted CTR versus random baseline.
+
+📂 [Read More](https://github.com/ZzClaude/DS-Portfolio/blob/main/Recommendation-System/readme.md)
