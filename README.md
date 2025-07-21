@@ -9,6 +9,8 @@ It's a curated selection of end-to-end projects that span machine learning, beha
 - ✨ **End-to-End Analysis**: From data preprocessing and feature engineering to insight generation  
 - 📈 **Visualization & Communication**: Clear storytelling for stakeholders
 
+[aaaaa](#-behavior-driven-ltv-modeling-for-b2b-saas)
+
 ---
 
 | Project                                                      | Topic                                  | Skills & Tools                                               | Data Link                                                    |
