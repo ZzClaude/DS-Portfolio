@@ -6,6 +6,17 @@ Our goal was to **build an actionable Customer Lifetime Value (LTV) model** base
 
 To do this, we built a closed-form LTV model based on discounted cash flows, refined its key parameters ($r$, $g$) through machine learning and clustering, and conducted sensitivity analysis to highlight business levers.
 
+$$
+LTV = \sum_{t=0}^{\infty} m \cdot \left[\frac{r(1 + g)}{1 + i}\right]^t \iff LTV = m \cdot \frac{1 + i}{1 + i - r(1 + g)}
+$$
+
+Where:
+
+- $m$ = average annual billing per customer
+- $r$ = estimated annual retention rate, based on observed billing continuity across FY21–FY25
+- $g$ = assumed revenue growth rate (e.g., upsell/cross-sell uplift)
+- $i$ = discount rate (following sponsor guidance, we will use a baseline of 4% and conduct sensitivity tests across a range from 4% to 10%, or up to 20%)
+
 ------
 
 ## The Problem We're Facing
@@ -756,6 +767,7 @@ This approach ensures growth expectations are grounded in behavior, not just his
 # 5. Sensitivity Analysis & Strategic Insights
 
 Customer lifetime value (LTV) is a nonlinear function shaped by three key parameters: **retention (r)**, **growth (g)**, and **discount rate (i)**. To understand which levers matter most, we conducted a sensitivity analysis using the final modeled values:
+
 $$
 LTV = m \cdot \frac{1 + i}{1 + i - r(1 + g)}
 $$
