@@ -11,6 +11,16 @@ It's a curated selection of end-to-end projects that span machine learning, beha
 
 ---
 
+## <big><strong>📬 Let's Connect</strong></big>
+
+If you're a recruiter, teammate, or fellow data enthusiast, feel free to explore these projects and reach out if you'd like to collaborate or chat about any of these ideas!.  
+
+I’m passionate about solving real-world problems through thoughtful analysis and scalable models.
+
+👉 [Connect with me on LinkedIn](https://www.linkedin.com/in/claude-zz-wang/)
+
+---
+
 | Project                                                      | Topic                                  | Skills & Tools                                               | Data Link                                                    |
 | ------------------------------------------------------------ | -------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | [Full-Stack LTV Modeling for SaaS](#-behavior-driven-ltv-modeling-for-b2b-saas) | B2B Lifetime Value, Retention & Growth | Feature engineering, clustering, XGBoost, rule-based modeling | [Link](https://drive.google.com/drive/folders/1U5BdXPyVNrz6sj4dK6-ZIvIhofZrK2Ms?usp=drive_link) |
@@ -19,15 +29,6 @@ It's a curated selection of end-to-end projects that span machine learning, beha
 | [UGC Analysis w/ NLP](#%EF%B8%8F-nlp--network-analysis-on-yelp-ugc) | NLP, Social Graph, Geospatial          | TextBlob, NetworkX, Folium                                   | [Link](https://drive.google.com/drive/folders/1YL5eo2ko3elyS5r0fC879d74XDuvJV40?usp=drive_link) |
 | [Recommender System](#-news-recommender-system-with-click-prediction) | Recommendation System, Click Behavior  | ItemCF/UserCF, CTR modeling, ranking, Faiss                  | [Link](https://drive.google.com/drive/folders/1Zkwe0_W8h86adkzXer42t2e-3nPvuuQU?usp=drive_link) |
 
----
-
-## <big><strong>📬 Let's Connect</strong></big>
-
-If you're a recruiter, teammate, or fellow data enthusiast, feel free to explore these projects and reach out if you'd like to collaborate or chat about any of these ideas!.  
-
-I’m passionate about solving real-world problems through thoughtful analysis and scalable models.
-
-👉 [Connect with me on LinkedIn](https://www.linkedin.com/in/claude-zz-wang/)
 
 ---
 
