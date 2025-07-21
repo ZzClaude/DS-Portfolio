@@ -9,17 +9,15 @@ It's a curated selection of end-to-end projects that span machine learning, beha
 - ✨ **End-to-End Analysis**: From data preprocessing and feature engineering to insight generation  
 - 📈 **Visualization & Communication**: Clear storytelling for stakeholders
 
-[aaaaa](#-behavior-driven-ltv-modeling-for-b2b-saas)
-
 ---
 
 | Project                                                      | Topic                                  | Skills & Tools                                               | Data Link                                                    |
 | ------------------------------------------------------------ | -------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| [Full-Stack LTV Modeling for SaaS](https://github.com/ZzClaude/DS-Portfolio/blob/main/Full-Stack-LTV-Pipeline/readme.md) | B2B Lifetime Value, Retention & Growth | Feature engineering, clustering, XGBoost, rule-based modeling | [Link](https://drive.google.com/drive/folders/1U5BdXPyVNrz6sj4dK6-ZIvIhofZrK2Ms?usp=drive_link) |
-| [Game Design Experiment](https://github.com/ZzClaude/DS-Portfolio/blob/main/AB-Testing-User-Engagement/readme.md) | A/B Testing, Retention, Engagement     | Hypothesis testing, bootstrap, visualization                 | [Link](https://drive.google.com/drive/folders/1C8HnbdoFgt83fhCzPXYCp938QK_uKAv0?usp=drive_link) |
-| [Cash Flow Forecast](https://github.com/ZzClaude/DS-Portfolio/blob/main/Time-Series-Forecasting/readme.md) | Time Series, Purchase/Redemption       | Time features, anomaly detection, seasonal patterns          | [Link](https://drive.google.com/drive/folders/1W9GH6-MUSChpsbXFIKSXnK5KmKkWIVhb?usp=drive_link) |
-| [UGC Analysis w/ NLP](https://github.com/ZzClaude/DS-Portfolio/blob/main/NLP-Yelp-Analysis/readme.md) | NLP, Social Graph, Geospatial          | TextBlob, NetworkX, Folium                                   | [Link](https://drive.google.com/drive/folders/1YL5eo2ko3elyS5r0fC879d74XDuvJV40?usp=drive_link) |
-| [Recommender System](https://github.com/ZzClaude/DS-Portfolio/blob/main/Recommendation-System/readme.md) | Recommendation System, Click Behavior  | ItemCF/UserCF, CTR modeling, ranking, Faiss                  | [Link](https://drive.google.com/drive/folders/1Zkwe0_W8h86adkzXer42t2e-3nPvuuQU?usp=drive_link) |
+| [Full-Stack LTV Modeling for SaaS](#-behavior-driven-ltv-modeling-for-b2b-saas) | B2B Lifetime Value, Retention & Growth | Feature engineering, clustering, XGBoost, rule-based modeling | [Link](https://drive.google.com/drive/folders/1U5BdXPyVNrz6sj4dK6-ZIvIhofZrK2Ms?usp=drive_link) |
+| [Game Design Experiment](#-ab-testing-in-mobile-game-design) | A/B Testing, Retention, Engagement     | Hypothesis testing, bootstrap, visualization                 | [Link](https://drive.google.com/drive/folders/1C8HnbdoFgt83fhCzPXYCp938QK_uKAv0?usp=drive_link) |
+| [Cash Flow Forecast](#-forecasting-purchase--redemption-for-cash-flow-management) | Time Series, Purchase/Redemption       | Time features, anomaly detection, seasonal patterns          | [Link](https://drive.google.com/drive/folders/1W9GH6-MUSChpsbXFIKSXnK5KmKkWIVhb?usp=drive_link) |
+| [UGC Analysis w/ NLP](#%EF%B8%8F-nlp--network-analysis-on-yelp-ugc) | NLP, Social Graph, Geospatial          | TextBlob, NetworkX, Folium                                   | [Link](https://drive.google.com/drive/folders/1YL5eo2ko3elyS5r0fC879d74XDuvJV40?usp=drive_link) |
+| [Recommender System](#-news-recommender-system-with-click-prediction) | Recommendation System, Click Behavior  | ItemCF/UserCF, CTR modeling, ranking, Faiss                  | [Link](https://drive.google.com/drive/folders/1Zkwe0_W8h86adkzXer42t2e-3nPvuuQU?usp=drive_link) |
 
 ---
 
