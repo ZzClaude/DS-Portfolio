@@ -25,9 +25,9 @@ I’m passionate about solving real-world problems through thoughtful analysis a
 | ------------------------------------------------------------ | -------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | [Full-Stack LTV Modeling for SaaS](#-behavior-driven-ltv-modeling-for-b2b-saas) | B2B Lifetime Value, Retention & Growth | Feature engineering, clustering, XGBoost, rule-based modeling | [Link](https://drive.google.com/drive/folders/1U5BdXPyVNrz6sj4dK6-ZIvIhofZrK2Ms?usp=drive_link) |
 | [Game Design Experiment](#-ab-testing-in-mobile-game-design) | A/B Testing, Retention, Engagement     | Hypothesis testing, bootstrap, visualization                 | [Link](https://drive.google.com/drive/folders/1C8HnbdoFgt83fhCzPXYCp938QK_uKAv0?usp=drive_link) |
-| [Cash Flow Forecast](#-forecasting-purchase--redemption-for-cash-flow-management) | Time Series, Purchase/Redemption       | Time features, anomaly detection, seasonal patterns          | [Link](https://drive.google.com/drive/folders/1W9GH6-MUSChpsbXFIKSXnK5KmKkWIVhb?usp=drive_link) |
-| [UGC Analysis w/ NLP](#%EF%B8%8F-nlp--network-analysis-on-yelp-ugc) | NLP, Social Graph, Geospatial          | TextBlob, NetworkX, Folium                                   | [Link](https://drive.google.com/drive/folders/1YL5eo2ko3elyS5r0fC879d74XDuvJV40?usp=drive_link) |
 | [Recommender System](#-news-recommender-system-with-click-prediction) | Recommendation System, Click Behavior  | ItemCF/UserCF, CTR modeling, ranking, Faiss                  | [Link](https://drive.google.com/drive/folders/1Zkwe0_W8h86adkzXer42t2e-3nPvuuQU?usp=drive_link) |
+| [UGC Analysis w/ NLP](#%EF%B8%8F-nlp--network-analysis-on-yelp-ugc) | NLP, Social Graph, Geospatial          | TextBlob, NetworkX, Folium                                   | [Link](https://drive.google.com/drive/folders/1YL5eo2ko3elyS5r0fC879d74XDuvJV40?usp=drive_link) |
+| [Cash Flow Forecast](#-forecasting-purchase--redemption-for-cash-flow-management) | Time Series, Purchase/Redemption       | Time features, anomaly detection, seasonal patterns          | [Link](https://drive.google.com/drive/folders/1W9GH6-MUSChpsbXFIKSXnK5KmKkWIVhb?usp=drive_link) |
 
 
 ---
@@ -70,17 +70,17 @@ I’m passionate about solving real-world problems through thoughtful analysis a
 
 ---
 
-### <big><strong>📉 Forecasting Purchase & Redemption for Cash Flow Management</strong></big>
+### <big><strong>📰 News Recommender System with Click Prediction</strong></big>
 
-> *Built forecasting models for financial inflows and outflows in a money-market fund system using time series signals.*
+> *Predicted user-article CTR through recall-ranking framework and rich user behavior features.*
 
-- Analyzed cyclical, holiday, and anomaly patterns from 2.8M+ transaction logs.
-- Engineered time-aware features and implemented multivariate models including XGBoost and Prophet.
-- Tuned forecasting to handle asymmetric penalty metrics based on prediction confidence.
-- Enabled more stable fund allocation planning and optimized redemption risk control.
-- Enhanced prediction accuracy over baseline by 15% in a real-world business simulation.
+- Reformulated click logs into CTR classification task and engineered session-based features.
+- Implemented recall via ItemCF and UserCF; ranked using LightGBM with custom features.
+- Addressed cold start via embedding similarity and re-click patterns.
+- Evaluated with position-decayed hit score, optimizing for top-5 ranking accuracy.
+- Achieved over 20% uplift in predicted CTR versus random baseline.
 
-📂 [Read More](https://github.com/ZzClaude/DS-Portfolio/blob/main/Time-Series-Forecasting/readme.md)
+📂 [Read More](https://github.com/ZzClaude/DS-Portfolio/blob/main/Recommendation-System/readme.md)
 
 ---
 
@@ -98,14 +98,14 @@ I’m passionate about solving real-world problems through thoughtful analysis a
 
 ---
 
-### <big><strong>📰 News Recommender System with Click Prediction</strong></big>
+### <big><strong>📉 Forecasting Purchase & Redemption for Cash Flow Management</strong></big>
 
-> *Predicted user-article CTR through recall-ranking framework and rich user behavior features.*
+> *Built forecasting models for financial inflows and outflows in a money-market fund system using time series signals.*
 
-- Reformulated click logs into CTR classification task and engineered session-based features.
-- Implemented recall via ItemCF and UserCF; ranked using LightGBM with custom features.
-- Addressed cold start via embedding similarity and re-click patterns.
-- Evaluated with position-decayed hit score, optimizing for top-5 ranking accuracy.
-- Achieved over 20% uplift in predicted CTR versus random baseline.
+- Analyzed cyclical, holiday, and anomaly patterns from 2.8M+ transaction logs.
+- Engineered time-aware features and implemented multivariate models including XGBoost and Prophet.
+- Tuned forecasting to handle asymmetric penalty metrics based on prediction confidence.
+- Enabled more stable fund allocation planning and optimized redemption risk control.
+- Enhanced prediction accuracy over baseline by 15% in a real-world business simulation.
 
-📂 [Read More](https://github.com/ZzClaude/DS-Portfolio/blob/main/Recommendation-System/readme.md)
+📂 [Read More](https://github.com/ZzClaude/DS-Portfolio/blob/main/Time-Series-Forecasting/readme.md)
