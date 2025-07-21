@@ -568,43 +568,43 @@ We summarized the behavioral properties of each cluster to extract business-rele
 
 <div align="center"><img src="https://drive.google.com/thumbnail?id=1teP1vgjNjeLemUe1IdtU2Dh-yBfA9idJ&sz=s4000" width="600"><br><sub></sub></div>
 
-#### 🟥 **Cluster 0 – All-Around Flagship Clients**
+🟥 **Cluster 0 – All-Around Flagship Clients**
 
 - High spend, broad and deep product usage
 - High upsell + cross-sell activity
 - Ideal for retention, referrals, and advocacy
 
-#### 🟧 **Cluster 1 – Breadth-Driven Stable Clients**
+🟧 **Cluster 1 – Breadth-Driven Stable Clients**
 
 - Broad product usage, high billing
 - Very low upsell behavior
 - May benefit from upgrade prompts or education
 
-#### 🟨 **Cluster 2 – Non-Recurring Loyal Clients**
+🟨 **Cluster 2 – Non-Recurring Loyal Clients**
 
 - Long tenure with non-subscription spending
 - Fully active, medium billing
 - Potential for conversion to recurring contracts
 
-#### 🟪 **Cluster 3 – Shallow Users with High Risk**
+🟪 **Cluster 3 – Shallow Users with High Risk**
 
 - Large product count but near-zero activity
 - High churn score (`risk_2025`)
 - Should be flagged for behavioral outreach
 
-#### 🟩 **Cluster 4 – Emerging Growth Clients**
+🟩 **Cluster 4 – Emerging Growth Clients**
 
 - New, active users with high engagement ratio
 - Low billing but broad product exploration
 - High potential for upsell and education
 
-#### 🟦 **Cluster 5 – Silent Passive Clients**
+🟦 **Cluster 5 – Silent Passive Clients**
 
 - Moderate tenure, no growth indicators
 - Minimal upsell/cross-sell
 - Suitable for no-touch retention strategy
 
-#### ⛔ **Cluster 6 – Activation Drop-off Clients**
+⛔ **Cluster 6 – Activation Drop-off Clients**
 
 - Touched many features but never activated
 - Lowest activity and highest churn risk
@@ -618,7 +618,7 @@ In the next section, we show how clustering and tree-based insights guide our **
 
 Clustering was not used as a predictive model—but rather as a **strategic layer** to support:
 
-#### 1️⃣ **Growth Rate Adjustment**
+1️⃣ **Growth Rate Adjustment**
 
 In later stages of LTV modeling, we used clusters to calibrate growth rates:
 
@@ -627,7 +627,7 @@ In later stages of LTV modeling, we used clusters to calibrate growth rates:
 
 **This avoided overfitting to past growth trends**, which are often misleading for long-term forecasting.
 
-#### 2️⃣ **Behavioral Segmentation for Strategy**
+2️⃣ **Behavioral Segmentation for Strategy**
 
 Clustering helped us uncover strategic personas:
 
