@@ -52,7 +52,7 @@ I’m passionate about solving real-world problems through thoughtful analysis a
 - Conducted **sensitivity analysis** and calculated segment-level LTV/CAC ratios for **ROI optimization**.
 - Delivered insights directly integrated into Salesforce for **client scoring** and resource allocation.
 
-📂 [Read More](https://github.com/ZzClaude/DS-Portfolio/blob/main/Full-Stack-LTV-Pipeline/readme.md)
+📂 [Read More](https://github.com/ZzClaude/DS-Portfolio/blob/main/01-Full-Stack-LTV-Pipeline/readme.md)
 
 ---
 
@@ -66,7 +66,7 @@ I’m passionate about solving real-world problems through thoughtful analysis a
 - Visualized skewed engagement distribution and used statistical correction for outliers.
 - Supported product decision-making through rigorous, interpretable experiment results.
 
-📂 [Read More](./AB-Game-Retention)
+📂 [Read More](https://github.com/ZzClaude/DS-Portfolio/blob/main/02-AB-Testing-For-Game-Design/readme.md)
 
 ---
 
@@ -80,7 +80,7 @@ I’m passionate about solving real-world problems through thoughtful analysis a
 - Evaluated with position-decayed hit score, optimizing for top-5 ranking accuracy.
 - Achieved over 20% uplift in predicted CTR versus random baseline.
 
-📂 [Read More](https://github.com/ZzClaude/DS-Portfolio/blob/main/Recommendation-System/readme.md)
+📂 [Read More](https://github.com/ZzClaude/DS-Portfolio/blob/main/03-Recommender-System/readme.md)
 
 ---
 
@@ -94,7 +94,7 @@ I’m passionate about solving real-world problems through thoughtful analysis a
 - Investigated “useful/funny/cool” reactions as proxies for credibility and social signals.
 - Delivered multi-sided insights for platform governance, business marketing, and user experience design.
 
-📂 [Read More](https://github.com/ZzClaude/DS-Portfolio/blob/main/NLP-Yelp-Analysis/readme.md)
+📂 [Read More](https://github.com/ZzClaude/DS-Portfolio/blob/main/04-NLP-Review-Analysis/readme.md)
 
 ---
 
@@ -108,4 +108,4 @@ I’m passionate about solving real-world problems through thoughtful analysis a
 - Enabled more stable fund allocation planning and optimized redemption risk control.
 - Enhanced prediction accuracy over baseline by 15% in a real-world business simulation.
 
-📂 [Read More](https://github.com/ZzClaude/DS-Portfolio/blob/main/Time-Series-Forecasting/readme.md)
+📂 [Read More](https://github.com/ZzClaude/DS-Portfolio/blob/main/05-Time-Series-Forecasting/readme.md)
