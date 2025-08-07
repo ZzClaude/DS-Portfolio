@@ -2,7 +2,6 @@
 
 <img src="https://miro.medium.com/v2/resize:fit:1101/1*Vd4TbG2Ocj4cZN2xOcMM8A.jpeg" alt="Image" width="500">
 
-
 ## Background
 
 > The investment funds of the bank are mainly used to purchase short-term, low-risk money market funds. These funds mainly invest in low-risk investment instruments such as government bonds, central bank bills, and bank deposits. Therefore, the risk is relatively low, making it suitable for users who have short-term capital management needs and are more conservative in their investment preferences.
@@ -138,7 +137,7 @@ $$
 3) Finally, Total Score =
 
 $$
-\sum_{i=1}^{30} f(\text{Purchase}_i) \times 45\% + \sum_{i=1}^{30} f(\text{Redeem}_i) \times 55\%
+\sum f(\text{Purchase}_i) \times 0.45 + \sum f(\text{Redeem}_i) \times 0.55
 $$
 
 The scoring function f(*) is not for public.
